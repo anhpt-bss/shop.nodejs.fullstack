@@ -6,7 +6,7 @@
   "author": "AnhPT",
   "license": "MIT",
   "engines": {
-    "node": "12.16.3"
+    "node": "18.x"
   },
   "scripts": {
     "start": "node app.js",
