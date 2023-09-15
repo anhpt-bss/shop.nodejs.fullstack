@@ -45,7 +45,7 @@ const adminBro = new AdminBro({
             isVisible: { list: false, filter: false, show: true, edit: true },
             components: {
               show: AdminBro.bundle(
-                "../components/admin-imgPath-component"
+                "../components/admin-imgPath-component.jsx"
               ),
             },
           },
@@ -95,7 +95,7 @@ const adminBro = new AdminBro({
           cart: {
             isVisible: { list: false, filter: false, show: true, edit: false },
             components: {
-              show: AdminBro.bundle("../components/admin-order-component"),
+              show: AdminBro.bundle("../components/admin-order-component.jsx"),
             },
           },
           "cart.items": {
@@ -158,7 +158,7 @@ const adminBro = new AdminBro({
     },
   },
   dashboard: {
-    component: AdminBro.bundle("../components/admin-dashboard-component"),
+    component: AdminBro.bundle("../components/admin-dashboard-component.jsx"),
   },
 });
 
