@@ -43,11 +43,11 @@ const adminBro = new AdminBro({
           },
           imagePath: {
             isVisible: { list: false, filter: false, show: true, edit: true },
-            // components: {
-            //   show: AdminBro.bundle(
-            //     "../components/admin-imgPath-component.jsx"
-            //   ),
-            // },
+            components: {
+              show: AdminBro.bundle(
+                "../components/admin-imgPath-component.jsx"
+              ),
+            },
           },
         },
       },
@@ -94,9 +94,9 @@ const adminBro = new AdminBro({
           },
           cart: {
             isVisible: { list: false, filter: false, show: true, edit: false },
-            // components: {
-            //   show: AdminBro.bundle("../components/admin-order-component.jsx"),
-            // },
+            components: {
+              show: AdminBro.bundle("../components/admin-order-component.jsx"),
+            },
           },
           "cart.items": {
             isVisible: {
@@ -157,9 +157,9 @@ const adminBro = new AdminBro({
       },
     },
   },
-  // dashboard: {
-  //   component: AdminBro.bundle("../components/admin-dashboard-component.jsx"),
-  // },
+  dashboard: {
+    component: AdminBro.bundle("../components/admin-dashboard-component.jsx"),
+  },
 });
 
 const ADMIN = {
