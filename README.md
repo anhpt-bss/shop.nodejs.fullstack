@@ -149,3 +149,7 @@ Below is the color palette used in this application:
 - ![#f9f7f4](https://via.placeholder.com/15/f9f7f4/000000?text=+) `#f9f7f4`
 - ![#202020](https://via.placeholder.com/15/202020/000000?text=+) `#202020`
 - ![#474747](https://via.placeholder.com/15/474747/000000?text=+) `#474747`
+
+# Production
+- https://vercel.com/anhpt-bss/online-store
+- https://dashboard.render.com/web/srv-ckehpgea3ovc73cj601g
