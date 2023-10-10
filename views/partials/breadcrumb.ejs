@@ -1,0 +1,15 @@
+<div class="row mt-2">
+  <div class="col-md-12 m-auto">
+    <%if (breadcrumbs) { %>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <% breadcrumbs.forEach(crumb => { if(!crumb.name.startsWith("?")){%>
+        <li class="breadcrumb-item" aria-current="page">
+          <a href="<%=crumb.url%>"><%= crumb.name %></a>
+        </li>
+        <%}})%>
+      </ol>
+    </nav>
+    <%} %>
+  </div>
+</div>

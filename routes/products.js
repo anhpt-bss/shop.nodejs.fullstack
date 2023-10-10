@@ -8,7 +8,7 @@ var moment = require("moment");
 router.get("/", async (req, res) => {
   const successMsg = req.flash("success")[0];
   const errorMsg = req.flash("error")[0];
-  const perPage = 8;
+  const perPage = 12;
   let page = parseInt(req.query.page) || 1;
   try {
     const products = await Product.find({})
@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
 
     const count = await Product.count();
 
-    res.render("shop/index", {
+    res.render("shop/products", {
       pageName: "All Products",
       products,
       successMsg,
@@ -37,7 +37,7 @@ router.get("/", async (req, res) => {
 
 // GET: search box
 router.get("/search", async (req, res) => {
-  const perPage = 8;
+  const perPage = 12;
   let page = parseInt(req.query.page) || 1;
   const successMsg = req.flash("success")[0];
   const errorMsg = req.flash("error")[0];
@@ -54,7 +54,7 @@ router.get("/search", async (req, res) => {
     const count = await Product.count({
       title: { $regex: req.query.search, $options: "i" },
     });
-    res.render("shop/index", {
+    res.render("shop/products", {
       pageName: "Search Results",
       products,
       successMsg,
@@ -74,7 +74,7 @@ router.get("/search", async (req, res) => {
 router.get("/:slug", async (req, res) => {
   const successMsg = req.flash("success")[0];
   const errorMsg = req.flash("error")[0];
-  const perPage = 8;
+  const perPage = 12;
   let page = parseInt(req.query.page) || 1;
   try {
     const foundCategory = await Category.findOne({ slug: req.params.slug });
@@ -86,7 +86,7 @@ router.get("/:slug", async (req, res) => {
 
     const count = await Product.count({ category: foundCategory.id });
 
-    res.render("shop/index", {
+    res.render("shop/products", {
       pageName: foundCategory.title,
       currentCategory: foundCategory,
       products: allProducts,
@@ -109,7 +109,7 @@ router.get("/:slug/:id", async (req, res) => {
   const errorMsg = req.flash("error")[0];
   try {
     const product = await Product.findById(req.params.id).populate("category");
-    res.render("shop/product", {
+    res.render("shop/product-detail", {
       pageName: product.title,
       product,
       successMsg,

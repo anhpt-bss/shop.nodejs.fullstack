@@ -15,6 +15,8 @@ router.use(csrfProtection);
 router.get("/", async (req, res) => {
   try {
     const products = await Product.find({})
+      .skip(0)
+      .limit(12)
       .sort("-createdAt")
       .populate("category");
     res.render("shop/home", { pageName: "Home", products });
@@ -205,10 +207,14 @@ router.get("/checkout", middleware.isLoggedIn, async (req, res) => {
   if (!req.session.cart) {
     return res.redirect("/shopping-cart");
   }
+
   //load the cart with the session's cart's id from the db
   cart = await Cart.findById(req.session.cart._id);
+  
+  if (!cart) {
+    return res.redirect("/shopping-cart");
+  }
 
-  const errMsg = req.flash("error")[0];
   res.render("shop/checkout", {
     total: cart.totalCost,
     csrfToken: req.csrfToken(),
