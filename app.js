@@ -29,6 +29,8 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+// Serve static files from the "assets" directory
+app.use(express.static(__dirname + '/assets'));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(
   session({

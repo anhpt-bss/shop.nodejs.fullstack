@@ -1,9 +1,9 @@
-<%- include ../partials/header %> <%- include ../partials/categories-navbar %>
+<%- include ../partials/header %>
 
 <div class="container">
   <div class="row">
-    <div class="col-md-8 m-auto">
-      <h1 class="mt-4 mb-4">Sign Up Page</h1>
+    <div class="col-md-6 m-auto">
+      <h1 class="mt-4 mb-4">Sign Up</h1>
       <% if(errorMsg != null && errorMsg.length>0) {%>
       <div id="flash-msg" class="alert alert-danger">
         <%=errorMsg %>
@@ -43,7 +43,7 @@
           />
         </div>
         <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-        <button type="submit" class="btn btn-primary button-style">
+        <button type="submit" class="btn btn-primary button-style mb-5">
           Sign Up
         </button>
       </form>

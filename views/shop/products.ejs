@@ -1,0 +1,38 @@
+<%- include ../partials/header %>
+
+<!-- MAIN -->
+<main>
+
+  <!-- BANNER -->
+  <%- include ../partials/banner %>
+
+  <!-- CATEGORY -->
+  <%- include ../partials/category %>
+
+  <!-- PRODUCT -->
+  <div class="product-container">
+    <div class="container">
+
+      <!-- SIDEBAR -->
+      <%- include ../partials/product-sidebar %>
+
+      <div class="product-box">
+
+        <!-- Flash messages -->
+        <%- include ../partials/flash-message %>
+
+        <!-- Breadcrumbs -->
+        <%- include ../partials/breadcrumb %>
+
+        <!-- PRODUCT GRID -->
+        <%- include ../partials/product-grid %>
+
+        <%- include ../partials/pagination %>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<%- include ../partials/footer %>

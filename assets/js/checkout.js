@@ -1,5 +1,5 @@
 // Create a Stripe client.
-const stripe = Stripe("pk_test_Nw7zXh6zu9SXKrzk7KDxKUiV004Ly59ywq");
+const stripe = Stripe("pk_test_51NzafLGA07QCghFzglRF55Po9aplhXFixBmLrL7RHe21s04qJfbxTcPXP8y1qKX4btXtov1EebWREgYdqBMtSZSa00gITdAunu");
 
 // Create an instance of Elements.
 const elements = stripe.elements();

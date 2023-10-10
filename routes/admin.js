@@ -15,8 +15,8 @@ const adminBro = new AdminBro({
   databases: [mongoose],
   rootPath: "/admin",
   branding: {
-    companyName: "BestBags",
-    logo: "/images/shop-icon.png",
+    companyName: "Bách Hóa Online",
+    logo: "/images/logo/favicon.ico",
     softwareBrothers: false,
   },
   resources: [

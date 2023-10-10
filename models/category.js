@@ -14,6 +14,10 @@ const categorySchema = Schema({
     unique: true,
     slug: "title",
   },
+  group: {
+    type: String,
+    required: false,
+  },
 });
 
 module.exports = mongoose.model("Category", categorySchema);

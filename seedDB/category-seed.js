@@ -6,9 +6,9 @@ const connectDB = require("./../config/db");
 connectDB();
 
 async function seedDB() {
-  async function seedCateg(titleStr) {
+  async function seedCateg(titleStr, groupStr) {
     try {
-      const categ = await new Category({ title: titleStr });
+      const categ = await new Category({ title: titleStr, group: groupStr });
       await categ.save();
     } catch (error) {
       console.log(error);
@@ -20,13 +20,14 @@ async function seedDB() {
     console.log("CLOSING CONNECTION");
     await mongoose.disconnect();
   }
-  await seedCateg("Backpacks");
-  await seedCateg("Briefcases");
-  await seedCateg("Mini Bags");
-  await seedCateg("Large Handbags");
-  await seedCateg("Travel");
-  await seedCateg("Totes");
-  await seedCateg("Purses");
+  await seedCateg("Bags", null);
+  await seedCateg("Backpacks", "Bags");
+  await seedCateg("Briefcases", "Bags");
+  await seedCateg("Mini Bags", "Bags");
+  await seedCateg("Large Handbags", "Bags");
+  await seedCateg("Travel", "Bags");
+  await seedCateg("Totes", "Bags");
+  await seedCateg("Purses", "Bags");
   await closeDB();
 }
 
