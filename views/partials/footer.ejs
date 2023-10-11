@@ -3,79 +3,24 @@
 <footer>
 
   <div class="footer-category">
-
     <div class="container">
 
       <h2 class="footer-category-title">Brand directory</h2>
 
+      <% if (categories) { %>
+      <% categories.filter(category => !category.group).forEach( groupCate => { %>
       <div class="footer-category-box">
 
-        <h3 class="category-box-title">Fashion :</h3>
+        <a class="category-box-title" href="/products/<%= groupCate.slug %>"><%= groupCate.title %> :</a>
 
-        <a href="#" class="footer-category-link">T-shirt</a>
-        <a href="#" class="footer-category-link">Shirts</a>
-        <a href="#" class="footer-category-link">shorts & jeans</a>
-        <a href="#" class="footer-category-link">jacket</a>
-        <a href="#" class="footer-category-link">dress & frock</a>
-        <a href="#" class="footer-category-link">innerwear</a>
-        <a href="#" class="footer-category-link">hosiery</a>
-
+        <% categories.filter(category => category.group && category.group === groupCate.title).forEach( category=> { %>
+        <a href="/products/<%= category.slug %>" class="footer-category-link"><%= category.title %></a>
+        <% }) %>
       </div>
-
-      <div class="footer-category-box">
-        <h3 class="category-box-title">footwear :</h3>
-
-        <a href="#" class="footer-category-link">sport</a>
-        <a href="#" class="footer-category-link">formal</a>
-        <a href="#" class="footer-category-link">Boots</a>
-        <a href="#" class="footer-category-link">casual</a>
-        <a href="#" class="footer-category-link">cowboy shoes</a>
-        <a href="#" class="footer-category-link">safety shoes</a>
-        <a href="#" class="footer-category-link">Party wear shoes</a>
-        <a href="#" class="footer-category-link">Branded</a>
-        <a href="#" class="footer-category-link">Firstcopy</a>
-        <a href="#" class="footer-category-link">Long shoes</a>
-      </div>
-
-      <div class="footer-category-box">
-        <h3 class="category-box-title">jewellery :</h3>
-
-        <a href="#" class="footer-category-link">Necklace</a>
-        <a href="#" class="footer-category-link">Earrings</a>
-        <a href="#" class="footer-category-link">Couple rings</a>
-        <a href="#" class="footer-category-link">Pendants</a>
-        <a href="#" class="footer-category-link">Crystal</a>
-        <a href="#" class="footer-category-link">Bangles</a>
-        <a href="#" class="footer-category-link">bracelets</a>
-        <a href="#" class="footer-category-link">nosepin</a>
-        <a href="#" class="footer-category-link">chain</a>
-        <a href="#" class="footer-category-link">Earrings</a>
-        <a href="#" class="footer-category-link">Couple rings</a>
-      </div>
-
-      <div class="footer-category-box">
-        <h3 class="category-box-title">cosmetics :</h3>
-
-        <a href="#" class="footer-category-link">Shampoo</a>
-        <a href="#" class="footer-category-link">Bodywash</a>
-        <a href="#" class="footer-category-link">Facewash</a>
-        <a href="#" class="footer-category-link">makeup kit</a>
-        <a href="#" class="footer-category-link">liner</a>
-        <a href="#" class="footer-category-link">lipstick</a>
-        <a href="#" class="footer-category-link">prefume</a>
-        <a href="#" class="footer-category-link">Body soap</a>
-        <a href="#" class="footer-category-link">scrub</a>
-        <a href="#" class="footer-category-link">hair gel</a>
-        <a href="#" class="footer-category-link">hair colors</a>
-        <a href="#" class="footer-category-link">hair dye</a>
-        <a href="#" class="footer-category-link">sunscreen</a>
-        <a href="#" class="footer-category-link">skin loson</a>
-        <a href="#" class="footer-category-link">liner</a>
-        <a href="#" class="footer-category-link">lipstick</a>
-      </div>
+      <% }) %>
+      <% } %>
 
     </div>
-
   </div>
 
   <div class="footer-nav">
@@ -88,25 +33,11 @@
           <h2 class="nav-title">Popular Categories</h2>
         </li>
 
+        <% categories.filter(category => category.group).forEach( category=> { %>
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Fashion</a>
+          <a href="/products/<%= category.slug %>" class="footer-nav-link"><%= category.title %></a>
         </li>
-
-        <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Electronic</a>
-        </li>
-
-        <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Cosmetic</a>
-        </li>
-
-        <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Health</a>
-        </li>
-
-        <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Watches</a>
-        </li>
+        <% }) %>
 
       </ul>
 
@@ -117,23 +48,23 @@
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Prices drop</a>
+          <a href="/products/filter?filter=new-arrivals" class="footer-nav-link">New Arrivals</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">New products</a>
+          <a href="/products/filter?filter=trending" class="footer-nav-link">Trending</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Best sales</a>
+          <a href="/products/filter?filter=top-rated" class="footer-nav-link">Top Rated</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Contact us</a>
+          <a href="/products/filter?filter=best-seller" class="footer-nav-link">Best Seller</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Sitemap</a>
+          <a href="/products/filter?filter=deal-of-the-day" class="footer-nav-link">Deal Of The Day</a>
         </li>
 
       </ul>
@@ -206,8 +137,7 @@
           </div>
 
           <address class="content">
-            419 State 414 Rte
-            Beaver Dams, New York(NY), 14812, USA
+            7 District, Ho Chi Minh City, Viet Nam
           </address>
         </li>
 
@@ -216,7 +146,7 @@
             <ion-icon name="call-outline"></ion-icon>
           </div>
 
-          <a href="tel:+607936-8058" class="footer-nav-link">(607) 936-8058</a>
+          <a href="tel:+840123456789" class="footer-nav-link">(+84) 0123-456-489</a>
         </li>
 
         <li class="footer-nav-item flex">
