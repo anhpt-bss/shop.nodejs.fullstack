@@ -134,7 +134,7 @@ All the models can be found in the models directory created using mongoose.
 - address (String)
 - paymentId (String)
 - createdAt (Date)
-- Delivered (Boolean)
+- delivered (Boolean)
 
 ## Colors
 

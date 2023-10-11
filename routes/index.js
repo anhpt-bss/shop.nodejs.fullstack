@@ -7,7 +7,10 @@ const Cart = require("../models/cart");
 const Order = require("../models/order");
 const middleware = require("../middleware");
 const router = express.Router();
-
+const {
+  checkoutValidationRules,
+  validateCheckout,
+} = require("../config/validator");
 const csrfProtection = csrf();
 router.use(csrfProtection);
 
@@ -210,7 +213,7 @@ router.get("/checkout", middleware.isLoggedIn, async (req, res) => {
 
   //load the cart with the session's cart's id from the db
   cart = await Cart.findById(req.session.cart._id);
-  
+
   if (!cart) {
     return res.redirect("/shopping-cart");
   }
@@ -224,48 +227,90 @@ router.get("/checkout", middleware.isLoggedIn, async (req, res) => {
 });
 
 // POST: handle checkout logic and payment using Stripe
-router.post("/checkout", middleware.isLoggedIn, async (req, res) => {
-  if (!req.session.cart) {
-    return res.redirect("/shopping-cart");
-  }
-  const cart = await Cart.findById(req.session.cart._id);
-  stripe.charges.create(
-    {
-      amount: cart.totalCost * 100,
-      currency: "usd",
-      source: req.body.stripeToken,
-      description: "Test charge",
-    },
-    function (err, charge) {
-      if (err) {
-        req.flash("error", err.message);
-        console.log(err);
-        return res.redirect("/checkout");
+router.post(
+  "/checkout",
+  [middleware.isLoggedIn, checkoutValidationRules(), validateCheckout],
+  async (req, res) => {
+    try {
+      if (!req.session.cart) {
+        return res.redirect("/shopping-cart");
       }
-      const order = new Order({
-        user: req.user,
-        cart: {
-          totalQty: cart.totalQty,
-          totalCost: cart.totalCost,
-          items: cart.items,
-        },
-        address: req.body.address,
-        paymentId: charge.id,
-      });
-      order.save(async (err, newOrder) => {
-        if (err) {
-          console.log(err);
-          return res.redirect("/checkout");
-        }
-        await cart.save();
-        await Cart.findByIdAndDelete(cart._id);
-        req.flash("success", "Successfully purchased");
-        req.session.cart = null;
-        res.redirect("/user/profile");
-      });
+      const cart = await Cart.findById(req.session.cart._id);
+      console.log(req.body);
+
+      if (req.body.paymentMethod === "cast") {
+        const order = new Order({
+          user: req.user,
+          cart: {
+            totalQty: cart.totalQty,
+            totalCost: cart.totalCost,
+            items: cart.items,
+          },
+          phone: req.body.phone,
+          address: req.body.address,
+          note: req.body.note,
+          paymentMethod: req.body.paymentMethod,
+          paymentId: null,
+        });
+        order.save(async (err, newOrder) => {
+          if (err) {
+            console.log(err);
+            return res.redirect("/checkout");
+          }
+          await cart.save();
+          await Cart.findByIdAndDelete(cart._id);
+          req.flash("success", "Successfully purchased");
+          req.session.cart = null;
+          res.redirect("/user/profile");
+        });
+      } else if (req.body.paymentMethod === "stripe") {
+        stripe.charges.create(
+          {
+            amount: cart.totalCost * 100,
+            currency: "usd",
+            source: req.body.stripeToken,
+            description: "Test charge",
+          },
+          function (err, charge) {
+            if (err) {
+              req.flash("error", err.message);
+              console.log(err);
+              return res.redirect("/checkout");
+            }
+            const order = new Order({
+              user: req.user,
+              cart: {
+                totalQty: cart.totalQty,
+                totalCost: cart.totalCost,
+                items: cart.items,
+              },
+              phone: req.body.phone,
+              address: req.body.address,
+              note: req.body.note,
+              paymentMethod: req.body.paymentMethod,
+              paymentId: charge.id,
+            });
+            order.save(async (err, newOrder) => {
+              if (err) {
+                console.log(err);
+                return res.redirect("/checkout");
+              }
+              await cart.save();
+              await Cart.findByIdAndDelete(cart._id);
+              req.flash("success", "Successfully purchased");
+              req.session.cart = null;
+              res.redirect("/user/profile");
+            });
+          }
+        );
+      }
+    } catch (err) {
+      console.log(err);
+      req.flash("error", err.message);
+      return res.redirect("/");
     }
-  );
-});
+  }
+);
 
 // create products array to store the info of each product in the cart
 async function productsFromCart(cart) {

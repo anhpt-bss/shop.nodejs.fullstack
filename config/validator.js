@@ -32,6 +32,14 @@ const userContactUsValidationRules = () => {
   ];
 };
 
+const checkoutValidationRules = () => {
+  return [
+    check("phone", "Please enter a phone number").not().isEmpty(),
+    check("address", "Please enter an address").not().isEmpty(),
+    check("paymentMethod", "Please enter a payment method").not().isEmpty(),
+  ];
+};
+
 const validateSignup = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -72,11 +80,27 @@ const validateContactUs = (req, res, next) => {
   next();
 };
 
+const validateCheckout = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    var messages = [];
+    errors.array().forEach((error) => {
+      messages.push(error.msg);
+    });
+    console.log(messages);
+    req.flash("error", messages);
+    return res.redirect("/checkout");
+  }
+  next();
+};
+
 module.exports = {
   userSignUpValidationRules,
   userSignInValidationRules,
   userContactUsValidationRules,
+  checkoutValidationRules,
   validateSignup,
   validateSignin,
   validateContactUs,
+  validateCheckout
 };
