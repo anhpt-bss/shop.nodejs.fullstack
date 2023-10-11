@@ -5,14 +5,32 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="AnhPT">
+  <meta name="description" content="Bách Hóa Online - Ecommerce Website">
+  <meta name="keywords" content="Bách Hóa Online, Ecommerce Website, Online Shopping, Online Store">
+
+  <meta property="og:description" content="Bách Hóa Online - Ecommerce Website">
+  <meta property="og:url" content="https://online-store-39hi.onrender.com">
+  <meta property="og:image" content="images/logo/bh-logo.png">
+
+  <meta name="HandheldFriendly" content="true">
+  <meta name="format-detection" content="telephone=no">
+  
   <% if (pageName) { %>
-  <title>Bách Hóa | <%= pageName %>
-  </title>
+  <meta property="og:title" content="Bách Hóa Online | <%= pageName %>">
+  <title>Bách Hóa Online | <%= pageName %></title>
   <%} else {%>
-  <title>Shopping Cart</title>
+  <meta property="og:title" content="Bách Hóa Online | Shopping Cart">
+  <title>Bách Hóa Online | Shopping Cart</title>
   <% } %>
+
+
   <!-- favicon -->
   <link rel="shortcut icon" href="/images/logo/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo/favicon-16x16.png">
+  <link rel="manifest" href="/images/logo/site.webmanifest">
 
   <!-- CDN -->
   <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
@@ -230,7 +248,7 @@
       </div>
     </div>
 
-    
+
     <!-- Navigation Menu -->
     <%- include ../partials/navigation-menu %>
     <!-- Navigation Menu -->
