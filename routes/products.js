@@ -70,6 +70,41 @@ router.get("/search", async (req, res) => {
   }
 });
 
+// GET: filter box
+router.get("/filter", async (req, res) => {
+  const perPage = 12;
+  let page = parseInt(req.query.page) || 1;
+  const successMsg = req.flash("success")[0];
+  const errorMsg = req.flash("error")[0];
+
+  try {
+    const products = await Product.find({
+      title: { $regex: req.query.filter, $options: "i" },
+    })
+      .sort("-createdAt")
+      .skip(perPage * page - perPage)
+      .limit(perPage)
+      .populate("category")
+      .exec();
+    const count = await Product.count({
+      title: { $regex: req.query.filter, $options: "i" },
+    });
+    res.render("shop/products", {
+      pageName: "Filter Results",
+      products,
+      successMsg,
+      errorMsg,
+      current: page,
+      breadcrumbs: null,
+      home: "/products/filter?filter=" + req.query.filter + "&",
+      pages: Math.ceil(count / perPage),
+    });
+  } catch (error) {
+    console.log(error);
+    res.redirect("/");
+  }
+});
+
 //GET: get a certain category by its slug (this is used for the categories navbar)
 router.get("/:slug", async (req, res) => {
   const successMsg = req.flash("success")[0];
