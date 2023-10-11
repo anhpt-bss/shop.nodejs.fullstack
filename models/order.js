@@ -40,19 +40,31 @@ const orderSchema = Schema({
       },
     ],
   },
+  phone: {
+    type: String,
+    required: true,
+  },
   address: {
+    type: String,
+    required: true,
+  },
+  note: {
+    type: String,
+    required: false,
+  },
+  paymentMethod: {
     type: String,
     required: true,
   },
   paymentId: {
     type: String,
-    required: true,
+    required: false,
   },
   createdAt: {
     type: Date,
     default: Date.now,
   },
-  Delivered: {
+  delivered: {
     type: Boolean,
     default: false,
   },

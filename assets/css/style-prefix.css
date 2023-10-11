@@ -99,7 +99,7 @@ button {
   cursor: pointer;
 }
 
-img, ion-icon, button, a { display: block; color: initial; }
+img, ion-icon, button, a { display: block; }
 
 span { display: inline-block; }
 
@@ -147,7 +147,7 @@ body::-webkit-scrollbar-thumb {
 
 body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
 
-
+.link-action { color: initial; }
 
 
 

@@ -2,7 +2,7 @@
 
 <!-- MAIN -->
 <main>
-  <div class="container cart">
+  <div class="container cart mt-5 mb-5">
 
     <% if (cart != null && !cart.paid ) { %>
     <div class="row">
@@ -59,13 +59,14 @@
         </table>
       </div>
     </div>
+    
     <hr>
-    <div class="row mt-4 mr-auto">
+    <div class="row mb-2 text-right">
       <div class="col-md-11 col-sm-12 m-auto">
         <strong>Total: <%= cart.totalCost %> </strong>
       </div>
     </div>
-    <div class="row mt-2 mr-auto">
+    <div class="row text-right">
       <div class="col-md-11 col-sm-12 m-auto">
         <a href="/checkout" class="btn btn-dark button-style">Checkout</a>
       </div>
@@ -73,7 +74,7 @@
     <% } else { %>
     <div class="row text-center">
       <div class="col-md-9 col-sm-9 m-auto">
-        <div class="card text-center mb-5 mt-5">
+        <div class="card text-center">
           <div class="card-body">
             <h5 class="card-title">No items in the cart</h5>
             <a href="/products/" class="btn btn-primary">Add new products</a>
