@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const resourceModel = require("./resource");
 const Schema = mongoose.Schema;
 
 const productSchema = Schema({
@@ -15,6 +16,10 @@ const productSchema = Schema({
     type: String,
     required: true,
   },
+  imageGallery: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Resource",
+  }],
   description: {
     type: String,
     required: true,
@@ -26,6 +31,7 @@ const productSchema = Schema({
   category: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Category",
+    required: true
   },
   manufacturer: {
     type: String,

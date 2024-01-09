@@ -1,0 +1,140 @@
+.product-detail img {
+    vertical-align: middle;
+}
+
+/* Position the image container (needed to position the left and right arrows) */
+.product_gallery {
+    position: relative;
+}
+
+/* Hide the images by default */
+.product_gallery__slides {
+    position: relative;
+    display: none;
+    height: 50vh;
+    width: auto;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.product_gallery__slides__img {
+    height: 100%;
+    width: auto;
+    position: relative;
+}
+
+.product_gallery__slides__img img {
+    height: 100%;
+    width: 100%;
+}
+
+/* Next & previous buttons */
+.product_gallery__prev,
+.product_gallery__next {
+    cursor: pointer;
+    position: absolute;
+    top: 55%;
+    left: 0;
+    right: unset;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white !important;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.product_gallery__next {
+    right: 0;
+    left: unset;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.product_gallery__prev:hover,
+.product_gallery__next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Number text (1/3 etc) */
+.product_gallery__slides__page {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Container for image text */
+.product_gallery__caption {
+    text-align: center;
+    background-color: #222;
+    padding: 2px 16px;
+    color: white;
+}
+
+.product_gallery__thumb:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Six columns side by side */
+.product_gallery__thumb__item {
+    float: left;
+    width: 16.66%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+/* Add a transparency effect for thumnbail images */
+.product_gallery__thumb__img {
+    cursor: pointer;
+    opacity: 0.6;
+    height: 100%;
+    width: auto;
+}
+
+.active,
+.product_gallery__thumb__img:hover {
+    opacity: 1;
+}
+
+.product_gallery__zoom_lens {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    /*set the size of the lens:*/
+    width: 90px;
+    height: 90px;
+    opacity: 0;
+    z-index: -1;
+}
+
+.product_gallery__zoom_result {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    border: 2px solid #d4d4d4;
+    border-radius: 10px;
+    /*set the size of the result div:*/
+    width: 300px;
+    height: 300px;
+    opacity: 0;
+    z-index: -1;
+}
+
+@media screen and (max-width: 992px) {
+    .product_gallery__zoom_lens,
+    .product_gallery__zoom_result {
+        display: none;
+    }
+}

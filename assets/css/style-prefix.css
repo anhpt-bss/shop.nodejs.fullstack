@@ -1874,8 +1874,211 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 
+/*-----------------------------------*\
+  #PRODUCT DETAIL
+\*-----------------------------------*/
+.product_card_wrapper {
+  max-width: 100%;
+  margin: 0 auto;
+  margin-bottom: 32px;
+}
 
+.product_card {
+  margin-bottom: 32px;
+}
 
+.product_detail__image {
+  height: 50vh;
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.product_detail__image img {
+  height: 100%;
+  width: auto;
+}
+
+.product_detail {
+  padding: 2rem 1rem;
+}
+
+.product_detail__title {
+  font-size: 1.5rem;
+  text-transform: capitalize;
+  font-weight: 700;
+  position: relative;
+  color: #12263a;
+  margin: 1rem 0;
+}
+
+.product_detail__category {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 0.9rem;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  background: #256eff;
+  color: #fff;
+  padding: 0 0.3rem;
+  transition: all 0.5s ease;
+}
+
+.product_detail__category:hover {
+  opacity: 0.9;
+}
+
+.product_detail__rating {
+  color: #ffc107;
+}
+
+.product_detail__rating span {
+  font-weight: 600;
+  color: #252525;
+}
+
+.product_detail__code {
+  font-size: 0.8rem;
+  color: #929292;
+  margin-left: 10px;
+}
+
+.product_detail__price {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.product_detail__old_price {
+  font-size: 1rem;
+  text-decoration: line-through;
+  color: #929292;
+  margin-right: 10px;
+}
+
+.product_detail__new_price {
+  font-size: 1.875rem;
+  font-weight: 500;
+  color: #ee4d2d;
+  margin-right: 10px;
+}
+
+.product_detail__discount {
+  font-size: .75rem;
+  color: #fff;
+  text-transform: uppercase;
+  background: #ee4d2d;
+  border-radius: 2px;
+  padding: 2px 4px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.product_detail__info ul {
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+
+.product_detail__info ul li {
+  margin: 0;
+  list-style: none;
+  background: url(https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/checked.png) left center no-repeat;
+  background-size: 18px;
+  padding-left: 1.7rem;
+  margin: 0.4rem 0;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.product_detail__info ul li span {
+  font-weight: 400;
+}
+
+.product_detail__purchase_info {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 1.5rem 0;
+}
+
+.product_detail__purchase_info input,
+.product_detail__purchase_info .btn {
+  border: 1.5px solid #ddd;
+  border-radius: 25px;
+  text-align: center;
+  padding: 0.45rem 0.8rem;
+  outline: 0;
+  margin-right: 0.2rem;
+  margin-bottom: 1rem;
+}
+
+.product_detail__purchase_info input {
+  width: 60px;
+}
+
+.product_detail__purchase_info .btn {
+  cursor: pointer;
+  color: #fff;
+}
+
+.product_detail__purchase_info .btn.green {
+  background: #256eff;
+}
+
+.product_detail__purchase_info .btn.red {
+  background: #f64749;
+}
+
+.product_detail__purchase_info .btn:hover {
+  opacity: 0.9;
+}
+
+.product_detail__social_links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.product_detail__social_links p {
+  margin-bottom: 0;
+}
+
+.product_detail__social_links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: #000;
+  border: 1px solid #000;
+  margin: 0 0.2rem;
+  border-radius: 50%;
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: all 0.5s ease;
+}
+
+.product_detail__social_links a:hover {
+  background: #256eff;
+  border-color: transparent;
+  color: #fff;
+}
+
+@media screen and (min-width: 992px) {
+  .product_card {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1.5rem;
+  }
+
+  .product_detail {
+    padding-top: 0;
+  }
+}
 
 /*-----------------------------------*\
   #TESTIMONIAL
@@ -3335,7 +3538,7 @@ footer {
   }
 
   .product-grid {
-    -ms-grid-columns: (1fr)[3];
+    -ms-grid-columns: 1fr 1fr 1fr;
     grid-template-columns: repeat(3, 1fr);
   }
 
@@ -3499,7 +3702,7 @@ footer {
   }
 
   .product-grid {
-    -ms-grid-columns: (1fr)[4];
+    -ms-grid-columns: 1fr 1fr 1fr 1fr;
     grid-template-columns: repeat(4, 1fr);
   }
 
