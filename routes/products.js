@@ -143,7 +143,8 @@ router.get("/:slug/:id", async (req, res) => {
   const successMsg = req.flash("success")[0];
   const errorMsg = req.flash("error")[0];
   try {
-    const product = await Product.findById(req.params.id).populate("category");
+    const product = await Product.findById(req.params.id).populate("category").populate("imageGallery");
+    console.log(product);
     res.render("shop/product-detail", {
       pageName: product.title,
       product,

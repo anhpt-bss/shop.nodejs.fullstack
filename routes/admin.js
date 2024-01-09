@@ -6,6 +6,8 @@ const Product = require("../models/product");
 const User = require("../models/user");
 const Order = require("../models/order");
 const Category = require("../models/category");
+const Resource = require("../models/resource");
+
 AdminBro.registerAdapter(AdminBroMongoose);
 
 const express = require("express");
@@ -48,6 +50,26 @@ const adminBro = new AdminBro({
                 "../components/admin-imgPath-component.jsx"
               ),
             },
+          },
+        },
+      },
+    },
+    {
+      resource: Category,
+      options: {
+        parent: {
+          name: "Admin Content",
+          icon: "User",
+        },
+        properties: {
+          _id: {
+            isVisible: { list: false, filter: true, show: true, edit: false },
+          },
+          slug: {
+            isVisible: { list: false, filter: false, show: false, edit: false },
+          },
+          title: {
+            isTitle: true,
           },
         },
       },
@@ -126,21 +148,26 @@ const adminBro = new AdminBro({
       },
     },
     {
-      resource: Category,
+      resource: Resource,
       options: {
         parent: {
           name: "Admin Content",
-          icon: "User",
+          icon: "InventoryManagement",
         },
         properties: {
           _id: {
             isVisible: { list: false, filter: true, show: true, edit: false },
           },
-          slug: {
-            isVisible: { list: false, filter: false, show: false, edit: false },
-          },
-          title: {
+          fileName: {
             isTitle: true,
+          },
+          url: {
+            isVisible: { list: false, filter: false, show: true, edit: true },
+            components: {
+              show: AdminBro.bundle(
+                "../components/admin-resource-component.jsx"
+              ),
+            },
           },
         },
       },

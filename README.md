@@ -151,5 +151,6 @@ Below is the color palette used in this application:
 - ![#474747](https://via.placeholder.com/15/474747/000000?text=+) `#474747`
 
 # Production
-- https://vercel.com/anhpt-bss/online-store
+- https://vercel.com/anhpt-bss/online-store (Github{anhpt.devweb/V})
 - https://dashboard.render.com/web/srv-ckehpgea3ovc73cj601g
+- https://console.cron-job.org/jobs (For wakeup server render){anhpt.master/V}
