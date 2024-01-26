@@ -11,13 +11,15 @@ const Resource = require("../models/resource");
 AdminBro.registerAdapter(AdminBroMongoose);
 
 const express = require("express");
+const hotDeals = require("../models/hotDeals");
+const blog = require("../models/blog");
 const app = express();
 
 const adminBro = new AdminBro({
   databases: [mongoose],
   rootPath: "/admin",
   branding: {
-    companyName: "Bách Hóa Online",
+    companyName: "Nông Sản Miền Nam",
     logo: "/images/logo/favicon.ico",
     softwareBrothers: false,
   },
@@ -172,15 +174,64 @@ const adminBro = new AdminBro({
         },
       },
     },
+    {
+      resource: hotDeals,
+      options: {
+        parent: {
+          name: "Admin Content",
+          icon: "InventoryManagement",
+        },
+        properties: {
+          _id: {
+            isVisible: { list: false, filter: true, show: true, edit: false },
+          },
+          description: {
+            isTitle: true,
+          },
+        },
+      },
+    },
+    {
+      resource: blog,
+      options: {
+        parent: {
+          name: "Admin Content",
+          icon: "InventoryManagement",
+        },
+        properties: {
+          _id: {
+            isVisible: { list: false, filter: true, show: true, edit: false },
+          },
+          title: {
+            isTitle: true,
+          },
+          slug: {
+            isVisible: { list: false, filter: false, show: false, edit: false },
+          },
+          banner: {
+            isVisible: { list: false, filter: false, show: true, edit: true },
+            components: {
+              show: AdminBro.bundle(
+                "../components/admin-resource-component.jsx"
+              ),
+            },
+          },
+          content: {
+            type: "richtext",
+            isVisible: { list: false, filter: true, show: true, edit: true },
+          },
+        },
+      },
+    },
   ],
   locale: {
     translations: {
       labels: {
-        loginWelcome: "Admin Panel Login",
+        loginWelcome: "Trang Quản Trị",
       },
       messages: {
         loginWelcome:
-          "Please enter your credentials to log in and manage your website contents",
+          "Vui lòng nhập thông tin đăng nhập của bạn để đăng nhập và quản lý nội dung trang web của bạn",
       },
     },
   },

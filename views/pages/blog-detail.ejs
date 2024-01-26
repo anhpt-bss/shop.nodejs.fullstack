@@ -1,0 +1,38 @@
+<%- include ../partials/header %>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- CATEGORY -->
+    <%- include ../partials/category %>
+
+      <div class="container blog-detail-container">
+
+        <!-- Flash messages -->
+        <%- include ../partials/flash-message %>
+
+          <!-- Blog content -->
+          <div class="blog-wrapper">
+            <div class="blog-detail-title"><%= blog.title %></div>
+
+            <div class="blog-meta">
+              Bởi <cite><%= blog.createdBy %></cite> / <time datetime="<%= blog.createdAt %>"><%= helper.formatDateTime(blog.createdAt) %></time>
+            </div>
+
+            <div class="blog-detail-summary"><%= blog.summary %></div>
+
+            <div class="blog-detail-banner">
+              <img src="<%= blog.banner.url %>" alt="<%= blog.banner.alt %>" class="blog-banner-img">
+            </div>
+    
+            <div class="blog-content"><%- blog.content %></div>
+          </div>
+
+          <br />
+          <!-- BLOG -->
+          <%- include ../partials/blog %>
+      </div>
+
+  </main>
+
+  <%- include ../partials/footer %>

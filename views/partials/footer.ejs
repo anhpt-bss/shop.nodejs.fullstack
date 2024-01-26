@@ -5,7 +5,7 @@
   <div class="footer-category">
     <div class="container">
 
-      <h2 class="footer-category-title">Brand directory</h2>
+      <h2 class="footer-category-title">Danh Mục</h2>
 
       <% if (categories) { %>
       <% categories.filter(category => !category.group).forEach( groupCate => { %>
@@ -30,7 +30,7 @@
       <ul class="footer-nav-list">
 
         <li class="footer-nav-item">
-          <h2 class="nav-title">Popular Categories</h2>
+          <h2 class="nav-title">Danh Mục Phổ Biến</h2>
         </li>
 
         <% categories.filter(category => category.group).forEach( category=> { %>
@@ -44,55 +44,27 @@
       <ul class="footer-nav-list">
 
         <li class="footer-nav-item">
-          <h2 class="nav-title">Products</h2>
+          <h2 class="nav-title">Các Sản Phẩm</h2>
         </li>
 
         <li class="footer-nav-item">
-          <a href="/products/filter?filter=new-arrivals" class="footer-nav-link">New Arrivals</a>
+          <a href="/products/filter?filter=new-arrivals" class="footer-nav-link">Hàng Mới Đến</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="/products/filter?filter=trending" class="footer-nav-link">Trending</a>
+          <a href="/products/filter?filter=trending" class="footer-nav-link">Xu Hướng</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="/products/filter?filter=top-rated" class="footer-nav-link">Top Rated</a>
+          <a href="/products/filter?filter=top-rated" class="footer-nav-link">Đánh Giá Cao</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="/products/filter?filter=best-seller" class="footer-nav-link">Best Seller</a>
+          <a href="/products/filter?filter=best-seller" class="footer-nav-link">Bán Chạy</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="/products/filter?filter=deal-of-the-day" class="footer-nav-link">Deal Of The Day</a>
-        </li>
-
-      </ul>
-
-      <ul class="footer-nav-list">
-
-        <li class="footer-nav-item">
-          <h2 class="nav-title">Our Company</h2>
-        </li>
-
-        <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Delivery</a>
-        </li>
-
-        <li class="footer-nav-item">
-          <a href="/pages/shipping-policy" class="footer-nav-link">Shipping Policy</a>
-        </li>
-
-        <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Terms and conditions</a>
-        </li>
-
-        <li class="footer-nav-item">
-          <a href="/pages/about-us" class="footer-nav-link">About us</a>
-        </li>
-
-        <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Secure payment</a>
+          <a href="/products/filter?filter=deal-of-the-day" class="footer-nav-link">Khuyến Mãi Hot</a>
         </li>
 
       </ul>
@@ -100,27 +72,27 @@
       <ul class="footer-nav-list">
 
         <li class="footer-nav-item">
-          <h2 class="nav-title">Services</h2>
+          <h2 class="nav-title">Thông Tin</h2>
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Prices drop</a>
+          <a href="#" class="footer-nav-link">Thanh Toán</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">New products</a>
+          <a href="/pages/shipping-policy" class="footer-nav-link">Giao Hàng</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Best sales</a>
+          <a href="#" class="footer-nav-link">Hoàn Trả</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="/pages/contact-us" class="footer-nav-link">Contact us</a>
+          <a href="#" class="footer-nav-link">Đăng Ký Bán Hàng</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="/pages/careers" class="footer-nav-link">Careers</a>
+          <a href="/pages/about-us" class="footer-nav-link">Về Chúng Tôi</a>
         </li>
 
       </ul>
@@ -128,7 +100,31 @@
       <ul class="footer-nav-list">
 
         <li class="footer-nav-item">
-          <h2 class="nav-title">Contact</h2>
+          <h2 class="nav-title">Các Trang Khác</h2>
+        </li>
+
+        <li class="footer-nav-item">
+          <a href="/pages/blog" class="footer-nav-link">Blog</a>
+        </li>
+
+        <li class="footer-nav-item">
+          <a href="#" class="footer-nav-link">Ưu Đãi</a>
+        </li>
+
+        <li class="footer-nav-item">
+          <a href="/pages/contact-us" class="footer-nav-link">Liên Hệ với chúng tôi</a>
+        </li>
+
+        <li class="footer-nav-item">
+          <a href="/pages/careers" class="footer-nav-link">Việc Làm</a>
+        </li>
+
+      </ul>
+
+      <ul class="footer-nav-list">
+
+        <li class="footer-nav-item">
+          <h2 class="nav-title">Liên Hệ</h2>
         </li>
 
         <li class="footer-nav-item flex">
@@ -154,7 +150,7 @@
             <ion-icon name="mail-outline"></ion-icon>
           </div>
 
-          <a href="mailto:example@gmail.com" class="footer-nav-link">example@gmail.com</a>
+          <a href="mailto:admin@nongsanmiennam.com" class="footer-nav-link normal">admin@nongsanmiennam.com</a>
         </li>
 
       </ul>
@@ -162,7 +158,7 @@
       <ul class="footer-nav-list">
 
         <li class="footer-nav-item">
-          <h2 class="nav-title">Follow Us</h2>
+          <h2 class="nav-title">Theo Dõi Chúng Tôi</h2>
         </li>
 
         <li>

@@ -25,24 +25,27 @@
         <% } %>
       </div>
     </div>
+    
     <!-- User's orders -->
     <div class="row mt-4">
       <div class="col-md-8 m-auto">
         <% if (orders != null && orders.length > 0) { %>
-        <h3>My orders</h3>
+        <h3>Đơn Mua</h3>
         <hr>
 
         <% orders.forEach( order => { %>
         <div class="card mb-3">
           <div class="card-header">
-            <span class="<%= order.delivered ? 'text-success' : 'text-warning' %>"><%= order.delivered ? 'Delivered' : 'Delivering' %></span>
+            <span class="<%= order.delivered ? 'text-success' : 'text-warning' %>">
+              <%= order.delivered ? 'Giao hàng thành công' : 'Đang giao hàng' %>
+            </span>
           </div>
           <div class="card-body">
             <p class="card-text ">
             <ul class="list-group">
               <% order.cart.items.forEach( item => { %>
               <li class="list-group-item d-flex justify-content-between align-items-center">
-                <%= item.title %> | <%= item.qty %> Units
+                <%= item.title %> | <%= item.qty %> Sản Phẩm
                 <span class="badge badge-info badge-pill">$ <%= item.price %></span>
               </li>
               <%}) %>
@@ -50,13 +53,13 @@
             </p>
           </div>
           <div class="card-footer d-flex justify-content-between">
-            <strong>Total Price: $<%= order.cart.totalCost %></strong>
+            <strong>Tổng giá: <%= order.cart.totalCost %>đ</strong>
             <span><%= order.createdAt.toLocaleString() %></span>
           </div>
         </div>
         <%}) %>
         <%} else { %>
-        <h3 class="text-center">You have not made any orders yet</h3>
+        <h3 class="text-center">Bạn không có đơn hàng nào</h3>
         <%} %>
       </div>
     </div>

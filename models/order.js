@@ -23,6 +23,12 @@ const orderSchema = Schema({
           type: mongoose.Schema.Types.ObjectId,
           ref: "Product",
         },
+        title: {
+          type: String,
+        },
+        productCode: {
+          type: String,
+        },
         qty: {
           type: Number,
           default: 0,
@@ -31,11 +37,9 @@ const orderSchema = Schema({
           type: Number,
           default: 0,
         },
-        title: {
-          type: String,
-        },
-        productCode: {
-          type: String,
+        discount: {
+          type: Number,
+          default: 0,
         },
       },
     ],

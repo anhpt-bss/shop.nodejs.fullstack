@@ -24,10 +24,10 @@ passport.use(
       try {
         const user = await User.findOne({ email: email });
         if (user) {
-          return done(null, false, { message: "Email already exists" });
+          return done(null, false, { message: "Địa chỉ email đã tồn tại" });
         }
         if (password != req.body.password2) {
-          return done(null, false, { message: "Passwords must match" });
+          return done(null, false, { message: "Xác nhận mật khẩu không trùng khớp" });
         }
         const newUser = await new User();
         newUser.email = email;
@@ -55,10 +55,10 @@ passport.use(
       try {
         const user = await User.findOne({ email: email });
         if (!user) {
-          return done(null, false, { message: "User doesn't exist" });
+          return done(null, false, { message: "Người dùng không tồn tại" });
         }
         if (!user.validPassword(password)) {
-          return done(null, false, { message: "Wrong password" });
+          return done(null, false, { message: "Mật khẩu không chính xác" });
         }
         return done(null, user);
       } catch (error) {

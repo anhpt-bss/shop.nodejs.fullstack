@@ -2,9 +2,9 @@ const { check, validationResult } = require("express-validator");
 
 const userSignUpValidationRules = () => {
   return [
-    check("name", "Name is required").not().isEmpty(),
-    check("email", "Invalid email").not().isEmpty().isEmail(),
-    check("password", "Please enter a password with 4 or more characters")
+    check("name", "Tên được yêu cầu").not().isEmpty(),
+    check("email", "Định dạng Email không hợp lệ").not().isEmpty().isEmail(),
+    check("password", "Vui lòng nhập mật khẩu từ 4 kí tự trở lên")
       .not()
       .isEmpty()
       .isLength({ min: 4 }),
@@ -13,8 +13,8 @@ const userSignUpValidationRules = () => {
 
 const userSignInValidationRules = () => {
   return [
-    check("email", "Invalid email").not().isEmpty().isEmail(),
-    check("password", "Invalid password").not().isEmpty().isLength({ min: 4 }),
+    check("email", "Định dạng Email không hợp lệ").not().isEmpty().isEmail(),
+    check("password", "Mật khẩu không chính xác").not().isEmpty().isLength({ min: 4 }),
   ];
 };
 

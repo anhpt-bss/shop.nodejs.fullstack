@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="AnhPT">
-  <meta name="description" content="Bách Hóa Online - Ecommerce Website">
-  <meta name="keywords" content="Bách Hóa Online, Ecommerce Website, Online Shopping, Online Store">
+  <meta name="description" content="Nông Sản Miền Nam - Ecommerce Website">
+  <meta name="keywords" content="Nông Sản Miền Nam, Hoa quả, Trái cây, Rau củ quả, Các loại hạt, Đồ ăn dinh dưỡng, Tây nguyên, Lâm đồng, Ecommerce Website, Online Shopping, Online Store">
 
-  <meta property="og:description" content="Bách Hóa Online - Ecommerce Website">
+  <meta property="og:description" content="Nông Sản Miền Nam - Ecommerce Website">
   <meta property="og:url" content="https://online-store-39hi.onrender.com">
   <meta property="og:image" content="images/logo/bh-logo.png">
 
@@ -17,11 +17,11 @@
   <meta name="format-detection" content="telephone=no">
   
   <% if (pageName) { %>
-  <meta property="og:title" content="Bách Hóa Online | <%= pageName %>">
-  <title>Bách Hóa Online | <%= pageName %></title>
+  <meta property="og:title" content="Nông Sản Miền Nam | <%= pageName %>">
+  <title>Nông Sản Miền Nam | <%= pageName %></title>
   <%} else {%>
-  <meta property="og:title" content="Bách Hóa Online | Shopping Cart">
-  <title>Bách Hóa Online | Shopping Cart</title>
+  <meta property="og:title" content="Nông Sản Miền Nam | Giỏ Hàng">
+  <title>Nông Sản Miền Nam | Giỏ Hàng</title>
   <% } %>
 
 
@@ -71,7 +71,7 @@
       </button>
 
       <div class="newsletter-img">
-        <img src="/images/newsletter.png" alt="subscribe newsletter" width="400" height="400">
+        <img src="/images/newsletter.png" alt="Đăng Kí Nhận Tin" width="400" height="400">
       </div>
 
       <div class="newsletter">
@@ -80,17 +80,17 @@
 
           <div class="newsletter-header">
 
-            <h3 class="newsletter-title">Subscribe Newsletter.</h3>
+            <h3 class="newsletter-title">Đăng Kí Nhận Tin.</h3>
 
             <p class="newsletter-desc">
-              Subscribe the <b>Anon</b> to get latest products and discount update.
+              Hãy đăng ký <b>Nông Sản Miền Nam</b> để cập nhật những thông tin về các sản phẩm mới nhất và các chương trình khuyến mãi hàng ngày.
             </p>
 
           </div>
 
-          <input type="email" name="email" class="email-field" placeholder="Email Address" required>
+          <input type="email" name="email" class="email-field" placeholder="Địa chỉ Email" required>
 
-          <button type="submit" class="btn-newsletter">Subscribe</button>
+          <button type="submit" class="btn-newsletter">Đăng Ký</button>
 
         </form>
 
@@ -115,15 +115,15 @@
     <div class="toast-detail">
 
       <p class="toast-message">
-        Someone in new just bought
+        Một sản phẩm vừa được bán
       </p>
 
       <p class="toast-title">
-        Rose Gold Earrings
+        Hạt macca sấy khô
       </p>
 
       <p class="toast-meta">
-        <time datetime="PT2M">2 Minutes</time> ago
+        <time datetime="PT2M">2 phút</time> trước
       </p>
 
     </div>
@@ -165,22 +165,22 @@
 
         <div class="header-alert-news">
           <p>
-            <b>Free Shipping</b>
-            This Week Order Over - $55
+            <b>Miễn Phí Vận Chuyển</b>
+            Cho đơn hàng dưới 10km - từ 50k &#8363;
           </p>
         </div>
 
         <div class="header-top-actions">
 
           <select name="currency">
-            <option value="usd">&dollar; USD</option>
             <option value="vnd">&#8363; VNĐ</option>
+            <option value="usd">&dollar; USD</option>
             <option value="eur">&euro; EUR</option>
           </select>
 
           <select name="language">
-            <option value="en-US">English</option>
             <option value="vi-VN">Tiếng Việt</option>
+            <option value="en-US">English</option>
           </select>
 
         </div>
@@ -191,13 +191,13 @@
       <div class="container">
 
         <a href="/" class="header-logo">
-          <img src="/images/logo/bh-logo.png" alt="logo" height="50">
+          <img src="/images/logo/bh-logo.png" alt="logo" height="60">
         </a>
 
         <div class="header-search-container">
 
           <form action="/products/search" method="GET">
-            <input class="search-field" type="search" placeholder="Enter your product name..." name="search" />
+            <input class="search-field" type="search" placeholder="Nhập tên sản phẩm bạn muốn tìm kiếm..." name="search" />
           </form>
 
           <button class="search-btn">
@@ -217,13 +217,13 @@
             <%=currentUser.username%>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/user/profile">User Account</a>
+            <a class="dropdown-item" href="/user/profile">Đơn Mua</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="/user/logout">Logout</a>
+            <a class="dropdown-item" href="/user/logout">Đăng Xuất</a>
           </div>
 
           <% } else {%>
-          <a class="link-action" href="/user/signin">Sign In</a>
+          <a class="link-action" href="/user/signin">Đăng Nhập</a>
           <% }%>
 
           <button class="action-btn">

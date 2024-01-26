@@ -7,11 +7,11 @@ const cartSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Product",
       },
-      qty: {
+      price: {
         type: Number,
         default: 0,
       },
-      price: {
+      discount: {
         type: Number,
         default: 0,
       },
@@ -20,6 +20,10 @@ const cartSchema = new mongoose.Schema({
       },
       productCode: {
         type: String,
+      },
+      qty: {
+        type: Number,
+        default: 0,
       },
     },
   ],

@@ -4,6 +4,8 @@ const Product = require("../models/product");
 const Category = require("../models/category");
 var moment = require("moment");
 
+const { helper } = require("../utils/helper");
+
 // GET: display all products
 router.get("/", async (req, res) => {
   const successMsg = req.flash("success")[0];
@@ -20,7 +22,7 @@ router.get("/", async (req, res) => {
     const count = await Product.count();
 
     res.render("shop/products", {
-      pageName: "All Products",
+      pageName: "Tất Cả Sản Phẩm",
       products,
       successMsg,
       errorMsg,
@@ -28,6 +30,7 @@ router.get("/", async (req, res) => {
       breadcrumbs: null,
       home: "/products/?",
       pages: Math.ceil(count / perPage),
+      helper: helper,
     });
   } catch (error) {
     console.log(error);
@@ -55,7 +58,7 @@ router.get("/search", async (req, res) => {
       title: { $regex: req.query.search, $options: "i" },
     });
     res.render("shop/products", {
-      pageName: "Search Results",
+      pageName: "Kết Quả Tìm Kiếm",
       products,
       successMsg,
       errorMsg,
@@ -63,6 +66,7 @@ router.get("/search", async (req, res) => {
       breadcrumbs: null,
       home: "/products/search?search=" + req.query.search + "&",
       pages: Math.ceil(count / perPage),
+      helper: helper,
     });
   } catch (error) {
     console.log(error);
@@ -90,7 +94,7 @@ router.get("/filter", async (req, res) => {
       title: { $regex: req.query.filter, $options: "i" },
     });
     res.render("shop/products", {
-      pageName: "Filter Results",
+      pageName: "Kết Quả Lọc",
       products,
       successMsg,
       errorMsg,
@@ -98,6 +102,7 @@ router.get("/filter", async (req, res) => {
       breadcrumbs: null,
       home: "/products/filter?filter=" + req.query.filter + "&",
       pages: Math.ceil(count / perPage),
+      helper: helper,
     });
   } catch (error) {
     console.log(error);
@@ -131,6 +136,7 @@ router.get("/:slug", async (req, res) => {
       breadcrumbs: req.breadcrumbs,
       home: "/products/" + req.params.slug.toString() + "/?",
       pages: Math.ceil(count / perPage),
+      helper: helper,
     });
   } catch (error) {
     console.log(error);
@@ -143,14 +149,16 @@ router.get("/:slug/:id", async (req, res) => {
   const successMsg = req.flash("success")[0];
   const errorMsg = req.flash("error")[0];
   try {
-    const product = await Product.findById(req.params.id).populate("category").populate("imageGallery");
-    console.log(product);
+    const product = await Product.findById(req.params.id)
+      .populate("category")
+      .populate("imageGallery");
     res.render("shop/product-detail", {
       pageName: product.title,
       product,
       successMsg,
       errorMsg,
       moment: moment,
+      helper: helper,
     });
   } catch (error) {
     console.log(error);

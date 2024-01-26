@@ -5,14 +5,21 @@ const Product = require("../models/product");
 const Category = require("../models/category");
 const Cart = require("../models/cart");
 const Order = require("../models/order");
+const HotDeals = require("../models/hotDeals");
+const Blog = require("../models/blog");
+
 const middleware = require("../middleware");
 const router = express.Router();
+
 const {
   checkoutValidationRules,
   validateCheckout,
 } = require("../config/validator");
+
 const csrfProtection = csrf();
 router.use(csrfProtection);
+
+const { helper } = require("../utils/helper");
 
 // GET: home page
 router.get("/", async (req, res) => {
@@ -22,7 +29,125 @@ router.get("/", async (req, res) => {
       .limit(12)
       .sort("-createdAt")
       .populate("category");
-    res.render("shop/home", { pageName: "Home", products });
+
+    const newArrivalsProducts = await Product.find({})
+      .skip(0)
+      .limit(8)
+      .sort("-createdAt")
+      .populate("category");
+
+    const trendingProducts = await Product.find({})
+      .skip(0)
+      .limit(8)
+      .sort("price")
+      .populate("category");
+
+    const topRatedProducts = await Product.find({})
+      .skip(0)
+      .limit(8)
+      .sort("-price")
+      .populate("category");
+
+    // Get hot deals product with number of already sold
+    const currentDateTime = new Date();
+    const hotDealsProducts = await HotDeals.aggregate([
+      {
+        $match: {
+          startAt: { $lte: currentDateTime },
+          finishAt: { $gte: currentDateTime },
+        },
+      },
+      {
+        $lookup: {
+          from: "products",
+          localField: "productId",
+          foreignField: "_id",
+          as: "productDetails",
+        },
+      },
+      {
+        $addFields: {
+          productDetails: { $arrayElemAt: ["$productDetails", 0] },
+        },
+      },
+      {
+        $lookup: {
+          from: "categories",
+          localField: "productDetails.category",
+          foreignField: "_id",
+          as: "productDetails.category",
+        },
+      },
+      {
+        $addFields: {
+          "productDetails.category": {
+            $cond: {
+              if: { $isArray: "$productDetails.category" },
+              then: { $arrayElemAt: ["$productDetails.category", 0] },
+              else: "$productDetails.category",
+            },
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: "orders",
+          let: {
+            productId: "$productId",
+            hotDealStartAt: "$startAt",
+            hotDealFinishAt: "$finishAt",
+          },
+          pipeline: [
+            {
+              $unwind: "$cart.items",
+            },
+            {
+              $match: {
+                $expr: {
+                  $and: [
+                    { $eq: ["$cart.items.productId", "$$productId"] },
+                    { $gte: ["$createdAt", "$$hotDealStartAt"] },
+                    { $lte: ["$createdAt", "$$hotDealFinishAt"] },
+                  ],
+                },
+              },
+            },
+            {
+              $group: {
+                _id: null,
+                totalQtySold: { $sum: "$cart.items.qty" },
+              },
+            },
+          ],
+          as: "soldDetails",
+        },
+      },
+      {
+        $addFields: {
+          alreadySold: {
+            $ifNull: [{ $arrayElemAt: ["$soldDetails.totalQtySold", 0] }, 0],
+          },
+        },
+      },
+    ]);
+
+    // Get blog posts
+    const blogs = await Blog.find({})
+      .skip(0)
+      .limit(4)
+      .sort("createdAt")
+      .populate("banner");
+
+    res.render("shop/home", {
+      pageName: "Trang Chủ",
+      products,
+      newArrivalsProducts,
+      trendingProducts,
+      topRatedProducts,
+      hotDealsProducts,
+      blogs,
+      helper: helper,
+    });
   } catch (error) {
     console.log(error);
     res.redirect("/");
@@ -57,19 +182,24 @@ router.get("/add-to-cart/:id", async (req, res) => {
       // if product exists in the cart, update the quantity
       cart.items[itemIndex].qty++;
       cart.items[itemIndex].price = cart.items[itemIndex].qty * product.price;
+      cart.items[itemIndex].discount =
+        cart.items[itemIndex].qty * product.discount;
       cart.totalQty++;
-      cart.totalCost += product.price;
+      cart.totalCost +=
+        product.price - product.price * (product.discount / 100);
     } else {
       // if product does not exists in cart, find it in the db to retrieve its price and add new item
       cart.items.push({
         productId: productId,
+        productCode: product.productCode,
+        title: product.title,
         qty: 1,
         price: product.price,
-        title: product.title,
-        productCode: product.productCode,
+        discount: product.discount,
       });
       cart.totalQty++;
-      cart.totalCost += product.price;
+      cart.totalCost +=
+        product.price - product.price * (product.discount / 100);
     }
 
     // if the user is logged in, store the user's id and save cart to the db
@@ -78,7 +208,7 @@ router.get("/add-to-cart/:id", async (req, res) => {
       await cart.save();
     }
     req.session.cart = cart;
-    req.flash("success", "Item added to the shopping cart");
+    req.flash("success", "Sản phẩm đã được thêm vào giỏ hàng!");
     res.redirect(req.headers.referer);
   } catch (err) {
     console.log(err.message);
@@ -99,23 +229,25 @@ router.get("/shopping-cart", async (req, res) => {
       req.session.cart = cart_user;
       return res.render("shop/shopping-cart", {
         cart: cart_user,
-        pageName: "Shopping Cart",
+        pageName: "Giỏ Hàng",
         products: await productsFromCart(cart_user),
+        helper: helper,
       });
     }
     // if there is no cart in session and user is not logged in, cart is empty
     if (!req.session.cart) {
       return res.render("shop/shopping-cart", {
         cart: null,
-        pageName: "Shopping Cart",
+        pageName: "Giỏ Hàng",
         products: null,
       });
     }
     // otherwise, load the session's cart
     return res.render("shop/shopping-cart", {
       cart: req.session.cart,
-      pageName: "Shopping Cart",
+      pageName: "Giỏ Hàng",
       products: await productsFromCart(req.session.cart),
+      helper: helper,
     });
   } catch (err) {
     console.log(err.message);
@@ -222,7 +354,8 @@ router.get("/checkout", middleware.isLoggedIn, async (req, res) => {
     total: cart.totalCost,
     csrfToken: req.csrfToken(),
     errorMsg,
-    pageName: "Checkout",
+    pageName: "Thanh Toán",
+    helper: helper,
   });
 });
 
@@ -259,7 +392,7 @@ router.post(
           }
           await cart.save();
           await Cart.findByIdAndDelete(cart._id);
-          req.flash("success", "Successfully purchased");
+          req.flash("success", "Đặt hàng thành công!");
           req.session.cart = null;
           res.redirect("/user/profile");
         });
@@ -297,7 +430,7 @@ router.post(
               }
               await cart.save();
               await Cart.findByIdAndDelete(cart._id);
-              req.flash("success", "Successfully purchased");
+              req.flash("success", "Đặt hàng thành công!");
               req.session.cart = null;
               res.redirect("/user/profile");
             });
@@ -319,8 +452,11 @@ async function productsFromCart(cart) {
     let foundProduct = (
       await Product.findById(item.productId).populate("category")
     ).toObject();
+    const totalPrice = foundProduct.price * item.qty;
+
     foundProduct["qty"] = item.qty;
-    foundProduct["totalPrice"] = item.price;
+    foundProduct["totalPrice"] =
+      totalPrice - totalPrice * (foundProduct.discount / 100);
     products.push(foundProduct);
   }
   return products;

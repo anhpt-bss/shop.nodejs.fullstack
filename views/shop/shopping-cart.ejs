@@ -10,13 +10,13 @@
         <table class="table text-center">
           <thead>
             <tr>
-              <th>Product</th>
+              <th>Sản Phẩm</th>
               <th>&nbsp;</th>
               <th>&nbsp;</th>
-              <th>Quantity</th>
+              <th>Số Lượng</th>
               <th>&nbsp;</th>
-              <th>Total</th>
-              <th>Subtotal</th>
+              <th>Đơn Giá</th>
+              <th>Thành Tiền</th>
               <th>&nbsp;</th>
             </tr>
           </thead>
@@ -28,31 +28,36 @@
                   <img src="<%=product.imagePath%>" class="img-small image-fluid" alt="image thumbnail" width="100" />
                 </a>
               </td>
+
               <td>
                 <div class="float-left mb-3">
                   <a class="title-link" href="/products/<%=product.category.slug%>/<%=product._id%>">
                     <h6 class="text-left"><%= product.title %></h6>
-                    <p class="text-left">Product No: <%= product.productCode %></p>
+                    <p class="text-left">Mã Sản Phẩm: <%= product.productCode %></p>
                 </div>
+              </td>
 
-                </a>
-              </td>
-              <td class="text-center">
-                <a href="/add-to-cart/<%=product._id%>"><i class="fa fa-plus-square" aria-hidden="true"></i> </a>
-              </td>
-              <td class="text-center">
-                <p class="qty-display pt-1">
-                  <%= product.qty %>
-                </p>
-              </td>
               <td class="text-center">
                 <a href="/reduce/<%=product._id%>"><i class="fa fa-minus-square" aria-hidden="true"></i></a>
               </td>
-              <td>$<%= product.price %></td>
-              <td>$<%= product.totalPrice %></td>
-              <td>
-                <a href="/removeAll/<%=product._id%>" class="btn btn-danger btn-sm button-style-danger">Remove all</a>
+
+              <td class="text-center"><%= product.qty %></td>
+
+              <td class="text-center">
+                <a href="/add-to-cart/<%=product._id%>"><i class="fa fa-plus-square" aria-hidden="true"></i> </a>
               </td>
+
+              <td>
+                <%=helper.addCommasToNumber(product.price - (product.price * (product.discount / 100)))%>
+                <%= product.discount > 0 ? ` (-${product.discount}%)` : '' %>
+              </td>
+
+              <td><%= helper.addCommasToNumber(product.totalPrice) %></td>
+
+              <td>
+                <a href="/removeAll/<%=product._id%>" class="btn btn-danger btn-sm button-style-danger">Xóa</a>
+              </td>
+
             </tr>
             <% } %> <% }) %>
           </tbody>
@@ -61,14 +66,15 @@
     </div>
     
     <hr>
+
     <div class="row mb-2 text-right">
       <div class="col-md-11 col-sm-12 m-auto">
-        <strong>Total: <%= cart.totalCost %> </strong>
+        <strong>Tổng Tiền: <%= helper.addCommasToNumber(cart.totalCost) %> </strong>
       </div>
     </div>
     <div class="row text-right">
       <div class="col-md-11 col-sm-12 m-auto">
-        <a href="/checkout" class="btn btn-dark button-style">Checkout</a>
+        <a href="/checkout" class="btn btn-dark button-style">Thanh Toán</a>
       </div>
     </div>
     <% } else { %>
@@ -76,11 +82,11 @@
       <div class="col-md-9 col-sm-9 m-auto">
         <div class="card text-center">
           <div class="card-body">
-            <h5 class="card-title">No items in the cart</h5>
-            <a href="/products/" class="btn btn-primary">Add new products</a>
+            <h5 class="card-title">Không có sản phẩm nào trong giỏ hàng</h5>
+            <a href="/products/" class="btn btn-primary">Thêm Mới Sản Phẩm</a>
           </div>
           <div class="card-footer text-body-secondary">
-            <a href="/">Back to Home</a>
+            <a href="/">Quay Lại Trang Chủ</a>
           </div>
         </div>
       </div>
