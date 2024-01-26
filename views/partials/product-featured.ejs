@@ -1,53 +1,69 @@
+<% if(hotDealsProducts && hotDealsProducts.length > 0) { %>
 <div class="product-featured">
 
-  <h2 class="title">Deal of the day</h2>
+  <h2 class="title">Khuyến Mãi Hot</h2>
 
   <div class="showcase-wrapper has-scrollbar">
 
+    <% hotDealsProducts.forEach((hotDeals) => { %>
     <div class="showcase-container">
 
       <div class="showcase">
 
         <div class="showcase-banner">
-          <img src="/images/products/shampoo.jpg" alt="shampoo, conditioner & facewash packs" class="showcase-img">
+          <img src="<%= hotDeals.productDetails.imagePath %>" alt="<%= hotDeals.productDetails.title %>" class="showcase-img">
         </div>
 
         <div class="showcase-content">
 
           <div class="showcase-rating">
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star-outline"></ion-icon>
-            <ion-icon name="star-outline"></ion-icon>
+            <% for (let i = 1; i <= 5; i++) { %>
+              <% if (hotDeals.productDetails.rating >= i) { %>
+                <% if (i < hotDeals.productDetails.rating && hotDeals.productDetails.rating < i + 1) { %>
+                  <ion-icon name="star-half-outline"></ion-icon>
+                <% } else { %>
+                  <ion-icon name="star"></ion-icon>
+                <% } %>
+              <% } else { %>
+                <ion-icon name="star-outline"></ion-icon>
+              <% } %>
+            <% } %>
           </div>
 
-          <a href="#">
-            <h3 class="showcase-title">shampoo, conditioner & facewash packs</h3>
+          <a href="/products/<%=hotDeals.productDetails.category.slug%>/<%=hotDeals.productDetails._id%>">
+            <h3 class="showcase-title"><%= hotDeals.productDetails.title %></h3>
           </a>
 
           <p class="showcase-desc">
-            Lorem ipsum dolor sit amet consectetur Lorem ipsum
-            dolor dolor sit amet consectetur Lorem ipsum dolor
+            <%=hotDeals.productDetails.summary%>
           </p>
 
           <div class="price-box">
-            <p class="price">$150.00</p>
-
-            <del>$200.00</del>
+            <% if (hotDeals.productDetails.discount && hotDeals.productDetails.discount> 0) { %>
+              <span class="price">
+                <%=helper.addCommasToNumber(hotDeals.productDetails.price - (hotDeals.productDetails.price * (hotDeals.productDetails.discount / 100)))%>
+              </span>
+              <del>
+                <%= helper.addCommasToNumber(hotDeals.productDetails.price) %>
+              </del>
+              <% } else { %>
+                <span class="price">
+                  <%=helper.addCommasToNumber(hotDeals.productDetails.price)%>
+                </span>
+                <% } %>
           </div>
 
-          <button class="add-cart-btn">add to cart</button>
+          <a class="add-cart-btn" href="/add-to-cart/<%=hotDeals.productDetails._id%>">Thêm Vào Giỏ Hàng</a>
 
           <div class="showcase-status">
             <div class="wrapper">
-              <p>
-                already sold: <b>20</b>
-              </p>
+              <div>
+                Đã Bán: <b><%=hotDeals.alreadySold%></b>
+              </div>
 
-              <p>
-                available: <b>40</b>
-              </p>
+              <div>
+                Còn Lại: <b><%=hotDeals.numberSold%></b>
+              </div>
             </div>
 
             <div class="showcase-status-bar"></div>
@@ -56,111 +72,28 @@
           <div class="countdown-box">
 
             <p class="countdown-desc">
-              Hurry Up! Offer ends in:
+              NHANH LÊN! ƯU ĐÃI KẾT THÚC TRONG:
             </p>
 
             <div class="countdown">
-
               <div class="countdown-content">
-
-                <p class="display-number">360</p>
-
-                <p class="display-text">Days</p>
-
+                <div class="display-number" id="days">0</div>
+                <div class="display-text">Ngày</div>
               </div>
-
+          
               <div class="countdown-content">
-                <p class="display-number">24</p>
-                <p class="display-text">Hours</p>
+                <div class="display-number" id="hours">0</div>
+                <div class="display-text">Giờ</div>
               </div>
-
+          
               <div class="countdown-content">
-                <p class="display-number">59</p>
-                <p class="display-text">Min</p>
+                <div class="display-number" id="minutes">0</div>
+                <div class="display-text">Phút</div>
               </div>
-
+          
               <div class="countdown-content">
-                <p class="display-number">00</p>
-                <p class="display-text">Sec</p>
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="showcase-container">
-
-      <div class="showcase">
-
-        <div class="showcase-banner">
-          <img src="/images/products/jewellery-1.jpg" alt="Rose Gold diamonds Earring" class="showcase-img">
-        </div>
-
-        <div class="showcase-content">
-
-          <div class="showcase-rating">
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star-outline"></ion-icon>
-            <ion-icon name="star-outline"></ion-icon>
-          </div>
-
-          <h3 class="showcase-title">
-            <a href="#" class="showcase-title">Rose Gold diamonds Earring</a>
-          </h3>
-
-          <p class="showcase-desc">
-            Lorem ipsum dolor sit amet consectetur Lorem ipsum
-            dolor dolor sit amet consectetur Lorem ipsum dolor
-          </p>
-
-          <div class="price-box">
-            <p class="price">$1990.00</p>
-            <del>$2000.00</del>
-          </div>
-
-          <button class="add-cart-btn">add to cart</button>
-
-          <div class="showcase-status">
-            <div class="wrapper">
-              <p> already sold: <b>15</b> </p>
-
-              <p> available: <b>40</b> </p>
-            </div>
-
-            <div class="showcase-status-bar"></div>
-          </div>
-
-          <div class="countdown-box">
-
-            <p class="countdown-desc">Hurry Up! Offer ends in:</p>
-
-            <div class="countdown">
-              <div class="countdown-content">
-                <p class="display-number">360</p>
-                <p class="display-text">Days</p>
-              </div>
-
-              <div class="countdown-content">
-                <p class="display-number">24</p>
-                <p class="display-text">Hours</p>
-              </div>
-
-              <div class="countdown-content">
-                <p class="display-number">59</p>
-                <p class="display-text">Min</p>
-              </div>
-
-              <div class="countdown-content">
-                <p class="display-number">00</p>
-                <p class="display-text">Sec</p>
+                <div class="display-number" id="seconds">0</div>
+                <div class="display-text">Giây</div>
               </div>
             </div>
 
@@ -170,8 +103,34 @@
 
       </div>
 
+      <script>
+        // Lấy thời gian kết thúc từ server (ví dụ)
+        const finishAt = new Date("<%= hotDeals.finishAt %>");
+    
+        function updateCountdown() {
+          const now = new Date();
+          const timeDifference = finishAt - now;
+    
+          const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+    
+          document.getElementById('days').innerText = days;
+          document.getElementById('hours').innerText = hours;
+          document.getElementById('minutes').innerText = minutes;
+          document.getElementById('seconds').innerText = seconds;
+        }
+    
+        // Cập nhật đồng hồ mỗi giây
+        setInterval(updateCountdown, 1000);
+    
+        // Gọi hàm updateCountdown khi trang được tải
+        updateCountdown();
+      </script>
     </div>
+    <% }) %>
 
   </div>
-
 </div>
+<% } %>

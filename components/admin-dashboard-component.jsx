@@ -35,10 +35,9 @@ const Dashboard = () => {
         alt="dashboard-head"
       />
       <Wrapper>
-        <Title>Welcome to the Admin Panel</Title>
+        <Title>Chào mừng bạn đến với trang quản trị của Nông Sản Miền Nam</Title>
         <Lead>
-          Here you can manage your products and categories as well as view users
-          and their orders.
+          Tại đây bạn có thể quản lý các sản phẩm và danh mục của mình cũng như xem người dùng và đơn đặt hàng của họ.
         </Lead>
       </Wrapper>
     </div>

@@ -64,52 +64,69 @@
                       <a href="/products/<%=product.category.slug%>" class="product_detail__category">
                         <%=product.category.title%>
                       </a>
-                      <span class="product_detail__code"><%=product.productCode%></span>
-
+                      <span class="product_detail__code">
+                        <%=product.productCode%>
+                      </span>
+                      
                       <div class="product_detail__rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                        <span>4.7(21)</span>
+                        <% for (let i = 1; i <= 5; i++) { %>
+                          <% if (product.rating >= i) { %>
+                            <% if (i < product.rating && product.rating < i + 1) { %>
+                              <i class="fas fa-star-half-alt"></i>
+                            <% } else { %>
+                              <i class="fas fa-star"></i>
+                            <% } %>
+                          <% } else { %>
+                            <i class="far fa-star"></i>
+                          <% } %>
+                        <% } %>
+
+                        <span><%= product.rating %>(<%= product.numberRating %>)</span>
                       </div>
 
                       <div class="product_detail__price">
-                        <div class="product_detail__old_price">
-                          <%=product.price%>
-                        </div>
-                        <div class="product_detail__new_price">
-                          <%=product.price * 90 / 100%>
-                        </div>
-                        <div class="product_detail__discount">10% OFF</div>
+                        <% if (product.discount && product.discount> 0) { %>
+                          <div class="product_detail__old_price">
+                            <%= helper.addCommasToNumber(product.price) %>
+                          </div>
+                          <div class="product_detail__new_price">
+                            <%=helper.addCommasToNumber(product.price - (product.price * (product.discount / 100)))%>
+                          </div>
+                          <div class="product_detail__discount">
+                            <%=product.discount%>%
+                          </div>
+                          <% } else { %>
+                            <div class="product_detail__new_price">
+                              <%=helper.addCommasToNumber(product.price)%>
+                            </div>
+                            <% } %>
                       </div>
 
                       <div class="product_detail__info">
                         <ul>
-                          <li>Color: <span>Black</span></li>
-                          <li>Manufacturer: <span>
+                          <!-- <li>Color: <span>Black</span></li> -->
+                          <li>Xuất xứ: <span>
                               <%=product.manufacturer%>
                             </span></li>
-                          <li>Shipping Area: <span>All over the world</span></li>
-                          <li>Shipping Fee: <span>Free</span></li>
+                          <li>Giao hàng: <span>Trên toàn quốc</span></li>
+                          <li>Phí giao hàng: <span>Miễn phí trong bán kính 10km</span></li>
                         </ul>
                       </div>
 
                       <div class="product_detail__purchase_info">
                         <input type="number" min="0" value="1">
 
-                        <% if(product.available) {%>
+                        <% if(product.available > 0) {%>
                           <a href="/add-to-cart/<%=product._id%>" class="btn green">
-                            Add to Shopping Cart <i class="fas fa-shopping-cart"></i>
+                            Thêm Vào Giỏ Hàng <i class="fas fa-shopping-cart"></i>
                           </a>
                           <% } else { %>
-                            <button type="button" class="btn red">Sold out</button>
+                            <button type="button" class="btn red">Hết Hàng</button>
                             <%} %>
                       </div>
 
                       <div class="product_detail__social_links">
-                        <p>Share At: </p>
+                        <p>Chia sẻ: </p>
                         <a href="#" onclick="shareOnFacebook()">
                           <i class="fab fa-facebook-f"></i>
                         </a>
@@ -132,7 +149,7 @@
             </div>
 
             <div class="product_detail__description">
-              <h4>Description: </h4>
+              <h4>Mô Tả Sản Phẩm: </h4>
               <div><%- product.description %></div>
             </div>
           </div>

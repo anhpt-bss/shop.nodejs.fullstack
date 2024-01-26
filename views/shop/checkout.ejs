@@ -24,27 +24,27 @@
 
           <div class="col-md-12">
             <div class="form-group">
-              <label for="phone">Phone number</label>
+              <label for="phone">Số điện thoại</label>
               <input type="text" id="phone" class="form-control" required name="phone" />
             </div>
           </div>
           <div class="col-md-12">
             <div class="form-group">
-              <label for="address">Address</label>
+              <label for="address">Địa chỉ</label>
               <input type="text" id="address" class="form-control" required name="address" />
             </div>
           </div>
           <div class="col-md-12">
             <div class="form-group">
-              <label for="note">Note</label>
+              <label for="note">Ghi chú</label>
               <textarea type="text" id="note" class="form-control" name="note" rows="3"></textarea>
             </div>
           </div>
           <div class="col-md-12">
             <div class="form-group">
-              <label for="paymentMethod">Payment method</label>
-              <select aria-label="Select payment method" type="select" id="paymentMethod" class="form-control" required name="paymentMethod">
-                <option value="cast" selected>Cast</option>
+              <label for="paymentMethod">Phương thức thanh toán</label>
+              <select aria-label="Chọn phương thức thanh toán" type="select" id="paymentMethod" class="form-control" required name="paymentMethod">
+                <option value="cast" selected>Thanh toán khi nhận hàng</option>
                 <option value="stripe">Stripe</option>
               </select>
             </div>
@@ -52,12 +52,12 @@
 
           <div class="col-md-12" id="stripeCardHolderName" style="display: none;">
             <div class="form-group">
-              <label for="card-name">Card Holder Name</label>
+              <label for="card-name">Tên chủ thẻ</label>
               <input type="text" id="card-name" class="form-control" />
             </div>
           </div>
           <div class="col-md-12" id="stripeCardInfo" style="display: none;">
-            <label for="card-element">Card Information</label>
+            <label for="card-element">Thông tin thẻ</label>
             <!-- A Stripe Element will be inserted here. -->
             <div id="card-element" class="StripeElement"></div>
             <!-- Used to display form errors. -->
@@ -71,7 +71,7 @@
         <div class="row mt-2 text-right">
           <div class="col-md-12 col-sm-12 m-auto">
             <button id="submit-btn" type="submit" class="btn btn-dark button-style text-right">
-              Buy now
+              Đặt hàng
             </button>
           </div>
         </div>

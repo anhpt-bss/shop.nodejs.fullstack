@@ -12,21 +12,21 @@ router.use(csrfProtection);
 //GET: display abous us page
 router.get("/about-us", (req, res) => {
   res.render("pages/about-us", {
-    pageName: "About Us",
+    pageName: "Về Chúng Tôi",
   });
 });
 
 //GET: display shipping policy page
 router.get("/shipping-policy", (req, res) => {
   res.render("pages/shipping-policy", {
-    pageName: "Shipping Policy",
+    pageName: "Chính Sách Giao Hàng",
   });
 });
 
 //GET: display careers page
 router.get("/careers", (req, res) => {
   res.render("pages/careers", {
-    pageName: "Careers",
+    pageName: "Nghề Nghiệp",
   });
 });
 
@@ -35,7 +35,7 @@ router.get("/contact-us", (req, res) => {
   const successMsg = req.flash("success")[0];
   const errorMsg = req.flash("error");
   res.render("pages/contact-us", {
-    pageName: "Contact Us",
+    pageName: "Liên Hệ",
     csrfToken: req.csrfToken(),
     successMsg,
     errorMsg,
@@ -66,13 +66,13 @@ router.post(
     const mailOpts = {
       from: req.body.email,
       to: process.env.GMAIL_EMAIL,
-      subject: `Enquiry from ${req.body.name}`,
+      subject: `Nông Sản Miền Nam - ${req.body.name}`,
       html: `
       <div>
-      <h2 style="color: #478ba2; text-align:center;">Client's name: ${req.body.name}</h2>
-      <h3 style="color: #478ba2;">Client's email: (${req.body.email})<h3>
+      <h2 style="color: #478ba2; text-align:center;">Tên người dùng: ${req.body.name}</h2>
+      <h3 style="color: #478ba2;">Địa chỉ Email người dùng: (${req.body.email})<h3>
       </div>
-      <h3 style="color: #478ba2;">Client's message: </h3>
+      <h3 style="color: #478ba2;">Nội dung: </h3>
       <div style="font-size: 30;">
       ${req.body.message}
       </div>
@@ -84,13 +84,13 @@ router.post(
       if (error) {
         req.flash(
           "error",
-          "An error occured... Please check your internet connection and try again later"
+          "Đã xảy ra lỗi... Vui lòng kiểm tra kết nối mạng của bạn và thử lại sau"
         );
         return res.redirect("/pages/contact-us");
       } else {
         req.flash(
           "success",
-          "Email sent successfully! Thanks for your inquiry."
+          "Email đã gửi đi thành công! Cảm ơn bạn vì đã liên hệ."
         );
         return res.redirect("/pages/contact-us");
       }

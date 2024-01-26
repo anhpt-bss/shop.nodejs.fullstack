@@ -3,7 +3,7 @@
   <div class="sidebar-category">
 
     <div class="sidebar-top">
-      <h2 class="sidebar-title">Category</h2>
+      <h2 class="sidebar-title">Danh Mục</h2>
 
       <button class="sidebar-close-btn" data-mobile-menu-close-btn>
         <ion-icon name="close-outline"></ion-icon>
@@ -39,7 +39,7 @@
           <li class="sidebar-submenu-category">
             <a href="/products/<%= category.slug %>" class="sidebar-submenu-title">
               <span class="product-name"><%= category.title %></span>
-              <data value="62" class="stock" title="Available Stock">62</data>
+              <data value="<%= category.productCount %>" class="stock" title="Available Stock">(<%= category.productCount %>)</data>
             </a>
           </li>
           <% }) %>
@@ -56,124 +56,58 @@
 
   <div class="product-showcase">
 
-    <h3 class="showcase-heading">best sellers</h3>
+    <h3 class="showcase-heading">Bán Chạy</h3>
 
     <div class="showcase-wrapper">
 
       <div class="showcase-container">
 
+        <% productsBestSellers.forEach((product) => { %>
         <div class="showcase">
 
-          <a href="#" class="showcase-img-box">
-            <img src="/images/products/1.jpg" alt="baby fabric shoes" width="75" height="75" class="showcase-img">
+          <a href="/products/<%=product.category.slug%>/<%=product._id%>" class="showcase-img-box">
+            <img src="<%= product.imagePath %>" alt="<%= product.title %>" width="75" height="75" class="showcase-img">
           </a>
 
           <div class="showcase-content">
 
-            <a href="#">
-              <h4 class="showcase-title">baby fabric shoes</h4>
+            <a href="/products/<%=product.category.slug%>/<%=product._id%>">
+              <h4 class="showcase-title"><%= product.title %></h4>
             </a>
 
             <div class="showcase-rating">
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
+              <% for (let i = 1; i <= 5; i++) { %>
+                <% if (product.rating >= i) { %>
+                  <% if (i < product.rating && product.rating < i + 1) { %>
+                    <ion-icon name="star-half-outline"></ion-icon>
+                  <% } else { %>
+                    <ion-icon name="star"></ion-icon>
+                  <% } %>
+                <% } else { %>
+                  <ion-icon name="star-outline"></ion-icon>
+                <% } %>
+              <% } %>
             </div>
 
             <div class="price-box">
-              <del>$5.00</del>
-              <span class="price">$4.00</span>
+              <% if (product.discount && product.discount> 0) { %>
+                <del>
+                  <%= helper.addCommasToNumber(product.price) %>
+                </del>
+                <span class="price">
+                  <%=helper.addCommasToNumber(product.price - (product.price * (product.discount / 100)))%>
+                </span>
+                <% } else { %>
+                  <span class="price">
+                    <%=helper.addCommasToNumber(product.price)%>
+                  </span>
+                  <% } %>
             </div>
 
           </div>
 
         </div>
-
-        <div class="showcase">
-
-          <a href="#" class="showcase-img-box">
-            <img src="/images/products/2.jpg" alt="men's hoodies t-shirt" class="showcase-img" width="75" height="75">
-          </a>
-
-          <div class="showcase-content">
-
-            <a href="#">
-              <h4 class="showcase-title">men's hoodies t-shirt</h4>
-            </a>
-            <div class="showcase-rating">
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star-half-outline"></ion-icon>
-            </div>
-
-            <div class="price-box">
-              <del>$17.00</del>
-              <span class="price">$7.00</span>
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="showcase">
-
-          <a href="#" class="showcase-img-box">
-            <img src="/images/products/3.jpg" alt="girls t-shirt" class="showcase-img" width="75" height="75">
-          </a>
-
-          <div class="showcase-content">
-
-            <a href="#">
-              <h4 class="showcase-title">girls t-shirt</h4>
-            </a>
-            <div class="showcase-rating">
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star-half-outline"></ion-icon>
-            </div>
-
-            <div class="price-box">
-              <del>$5.00</del>
-              <span class="price">$3.00</span>
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="showcase">
-
-          <a href="#" class="showcase-img-box">
-            <img src="/images/products/4.jpg" alt="woolen hat for men" class="showcase-img" width="75" height="75">
-          </a>
-
-          <div class="showcase-content">
-
-            <a href="#">
-              <h4 class="showcase-title">woolen hat for men</h4>
-            </a>
-            <div class="showcase-rating">
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-              <ion-icon name="star"></ion-icon>
-            </div>
-
-            <div class="price-box">
-              <del>$15.00</del>
-              <span class="price">$12.00</span>
-            </div>
-
-          </div>
-
-        </div>
+        <% }) %>
 
       </div>
 

@@ -1,6 +1,6 @@
 <div class="product-main">
 
-  <h2 class="title">New Products</h2>
+  <h2 class="title">Sản Phẩm</h2>
 
   <div class="product-grid">
 
@@ -12,7 +12,9 @@
         <img src="<%= product.imagePath %>" alt="<%= product.title %>" width="300" class="product-img default">
         <img src="<%= product.imagePath %>" alt="<%= product.title %>" width="300" class="product-img hover">
 
-        <p class="showcase-badge">15%</p>
+        <% if(product.discount && product.discount > 0) { %>
+          <p class="showcase-badge"><%= product.discount %>%</p>
+        <% } %>
 
         <div class="showcase-actions">
 
@@ -47,21 +49,37 @@
         </a>
 
         <div class="showcase-rating">
-          <ion-icon name="star"></ion-icon>
-          <ion-icon name="star"></ion-icon>
-          <ion-icon name="star"></ion-icon>
-          <ion-icon name="star-outline"></ion-icon>
-          <ion-icon name="star-outline"></ion-icon>
+          <% for (let i = 1; i <= 5; i++) { %>
+            <% if (product.rating >= i) { %>
+              <% if (i < product.rating && product.rating < i + 1) { %>
+                <ion-icon name="star-half-outline"></ion-icon>
+              <% } else { %>
+                <ion-icon name="star"></ion-icon>
+              <% } %>
+            <% } else { %>
+              <ion-icon name="star-outline"></ion-icon>
+            <% } %>
+          <% } %>
         </div>
 
         <div class="price-box">
-          <p class="price">$<%= product.price %></p>
-          <del>$75.00</del>
+          <% if (product.discount && product.discount> 0) { %>
+            <span class="price">
+              <%=helper.addCommasToNumber(product.price - (product.price * (product.discount / 100)))%>
+            </span>
+            <del>
+              <%= helper.addCommasToNumber(product.price) %>
+            </del>
+            <% } else { %>
+              <span class="price">
+                <%=helper.addCommasToNumber(product.price)%>
+              </span>
+              <% } %>
         </div>
 
-        <% if(!product.available) {%>
+        <% if(product.available <= 0) {%>
         <span class="text-danger">
-          Sold out
+          Hết Hàng
         </span>
         <%} %>
 

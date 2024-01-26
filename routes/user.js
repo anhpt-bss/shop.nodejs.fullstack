@@ -22,7 +22,7 @@ router.get("/signup", middleware.isNotLoggedIn, (req, res) => {
   res.render("user/signup", {
     csrfToken: req.csrfToken(),
     errorMsg,
-    pageName: "Sign Up",
+    pageName: "Đăng Ký",
   });
 });
 // POST: handle the signup logic
@@ -68,7 +68,7 @@ router.get("/signin", middleware.isNotLoggedIn, async (req, res) => {
   res.render("user/signin", {
     csrfToken: req.csrfToken(),
     errorMsg,
-    pageName: "Sign In",
+    pageName: "Đăng Nhập",
   });
 });
 
@@ -125,7 +125,7 @@ router.get("/profile", middleware.isLoggedIn, async (req, res) => {
       orders: allOrders,
       errorMsg,
       successMsg,
-      pageName: "User Profile",
+      pageName: "Hồ Sơ Người Dùng",
     });
   } catch (err) {
     console.log(err);
