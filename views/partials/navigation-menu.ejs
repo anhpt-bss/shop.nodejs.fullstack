@@ -31,12 +31,17 @@
             </li>
             <% }) %>
 
-            <li class="panel-list-item">
-              <a href="#">
-                <img src="/images/womens-banner.jpg" alt="mouse collection" width="250" height="119">
-              </a>
-            </li>
           </ul>
+          <% }) %>
+          <% } %>
+
+          <% if (categories) { %>
+            <% categories.filter(category => !category.group).forEach( groupCate => { %>
+              <div class="cateroty-thumbnail">
+                <a href="/products/<%= groupCate.slug %>">
+                  <img src="<%= groupCate.thumbnail ? groupCate.thumbnail.url : '' %>" alt="<%= groupCate.thumbnail ? groupCate.thumbnail.alt : 'category-thumb' %>" height="150">
+                </a>
+              </div>
           <% }) %>
           <% } %>
 

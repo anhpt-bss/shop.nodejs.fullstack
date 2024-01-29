@@ -21,11 +21,13 @@ const productSchema = Schema({
   }],
   summary: {
     type: String,
-    required: true,
+    required: false,
+    default: null
   },
   description: {
     type: String,
-    required: true,
+    required: false,
+    default: null
   },
   price: {
     type: Number,
@@ -43,10 +45,12 @@ const productSchema = Schema({
   },
   manufacturer: {
     type: String,
+    default: 'Việt Nam'
   },
   available: {
     type: Number,
     required: true,
+    default: 100
   },
   rating: {
     type: Number,

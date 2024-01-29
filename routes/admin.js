@@ -73,6 +73,14 @@ const adminBro = new AdminBro({
           title: {
             isTitle: true,
           },
+          thumbnail: {
+            isVisible: { list: false, filter: false, show: true, edit: true },
+            components: {
+              show: AdminBro.bundle(
+                "../components/admin-resource-component.jsx"
+              ),
+            },
+          },
         },
       },
     },

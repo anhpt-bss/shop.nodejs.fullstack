@@ -70,6 +70,19 @@ app.use(async (req, res, next) => {
     const categories = await Category.aggregate([
       {
         $lookup: {
+          from: "resources",
+          localField: "thumbnail",
+          foreignField: "_id",
+          as: "thumbnail",
+        },
+      },
+      {
+        $addFields: {
+          thumbnail: { $arrayElemAt: ["$thumbnail", 0] },
+        },
+      },
+      {
+        $lookup: {
           from: "products", // the name of your products collection
           localField: "_id",
           foreignField: "category",
@@ -81,6 +94,7 @@ app.use(async (req, res, next) => {
           title: 1,
           slug: 1,
           group: 1,
+          thumbnail: 1,
           productCount: { $size: "$products" },
         },
       },
@@ -88,6 +102,7 @@ app.use(async (req, res, next) => {
         $sort: { title: 1 },
       },
     ]);
+
     res.locals.categories = categories;
 
     // Get list product best sellers

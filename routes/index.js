@@ -23,6 +23,9 @@ const { helper } = require("../utils/helper");
 
 // GET: home page
 router.get("/", async (req, res) => {
+  const successMsg = req.flash("success")[0];
+  const errorMsg = req.flash("error")[0];
+
   try {
     const products = await Product.find({})
       .skip(0)
@@ -140,6 +143,8 @@ router.get("/", async (req, res) => {
 
     res.render("shop/home", {
       pageName: "Trang Chủ",
+      successMsg,
+      errorMsg,
       products,
       newArrivalsProducts,
       trendingProducts,

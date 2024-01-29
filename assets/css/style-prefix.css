@@ -553,7 +553,7 @@ body::-webkit-scrollbar-thumb:hover {
 .toast-banner {
   width: 70px;
   height: 70px;
-  border: 1px solid var(--cultured);
+  /* border: 1px solid var(--cultured); */
   -webkit-border-radius: var(--border-radius-sm);
   border-radius: var(--border-radius-sm);
 }
@@ -1089,11 +1089,13 @@ body::-webkit-scrollbar-thumb:hover {
   font-size: var(--fs-9);
   font-weight: var(--weight-600);
   text-transform: uppercase;
+  margin-bottom: 0;
 }
 
 .category-item-amount {
   color: var(--sonic-silver);
   font-size: var(--fs-11);
+  margin-bottom: 0;
 }
 
 .category-btn {
@@ -3386,15 +3388,15 @@ footer {
     color: var(--salmon-pink);
   }
 
-  .panel-list-item:not(:last-child) a {
+  .panel-list-item a {
     padding: 4px 0;
   }
 
-  .panel-list-item:last-child {
+  .cateroty-thumbnail {
     margin-top: 20px;
   }
 
-  .panel-list-item img {
+  .cateroty-thumbnail img {
     width: 100%;
     height: auto;
     -webkit-border-radius: var(--border-radius-sm);
