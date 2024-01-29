@@ -145,6 +145,11 @@ router.get("/:slug", async (req, res) => {
           },
         },
         {
+          $addFields: {
+            category: { $arrayElemAt: ["$category", 0] },
+          },
+        },
+        {
           $sort: { createdAt: -1 },
         },
         {
