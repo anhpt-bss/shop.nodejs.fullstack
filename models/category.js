@@ -14,6 +14,10 @@ const categorySchema = Schema({
     unique: true,
     slug: "title",
   },
+  thumbnail: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Resource",
+  },
   group: {
     type: String,
     required: false,

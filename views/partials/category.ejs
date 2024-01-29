@@ -9,7 +9,7 @@
       <div class="category-item">
 
         <div class="category-img-box">
-          <img src="/images/icons/dress.svg" alt="dress & frock" width="30">
+          <img src="<%= category.thumbnail ? category.thumbnail.url : '/images/category-thumb.png' %>" alt="<%= category.thumbnail ? category.thumbnail.url : 'category-thumb' %>" width="30">
         </div>
 
         <div class="category-content-box">

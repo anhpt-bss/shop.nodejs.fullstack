@@ -60,7 +60,7 @@
   <div class="overlay" data-overlay></div>
 
   <!-- MODAL -->
-  <div class="modal" data-modal>
+  <div class="modal closed" data-modal>
 
     <div class="modal-close-overlay" data-modal-overlay></div>
 
@@ -109,22 +109,36 @@
     </button>
 
     <div class="toast-banner">
-      <img src="/images/products/jewellery-1.jpg" alt="Rose Gold Earrings" width="80" height="70">
+      <img src="/images/logo/bh-logo.png" alt="Rose Gold Earrings" width="80" height="80">
     </div>
 
     <div class="toast-detail">
 
-      <p class="toast-message">
-        Một sản phẩm vừa được bán
-      </p>
+      
+        <% if(session.cart) { %>
+          <p class="toast-message">
+            Có <%= session.cart.totalQty %> sản phẩm trong giỏ hàng
+          </p>
 
-      <p class="toast-title">
-        Hạt macca sấy khô
-      </p>
+          <a class="toast-title" href="/shopping-cart">
+            Xem giỏ hàng
+          </a>
+    
+          <p class="toast-meta">
+            <time datetime="<%= session.cart.createdAt %>"><%= helper.getDaysFromNow(session.cart.createdAt) %></time>
+          </p>
 
-      <p class="toast-meta">
-        <time datetime="PT2M">2 phút</time> trước
-      </p>
+          <% } else { %>
+
+            <p class="toast-message">
+              Hạt đặc sản, sự lựa chọn hoàn hảo cho bữa ăn thơm ngon và dinh dưỡng. Đặt ngay để trải nghiệm hương vị độc đáo từ những hạt khô tuyển chọn!
+            </p>
+
+            <a class="toast-title" href="/products/hat-dac-san">
+              Xem ngay
+            </a>
+            
+        <% } %>
 
     </div>
 

@@ -1,5 +1,14 @@
 'use strict';
 
+// Open newsletter after 10'
+setTimeout(() => {
+  const sessionTime = new Date().getTime() - localStorage.getItem('nongsan_session_time')
+  if (sessionTime > 600000) {
+    localStorage.setItem('nongsan_session_time', new Date().getTime())
+    modal.classList.remove('closed')
+  }
+}, 100);
+
 // modal variables
 const modal = document.querySelector('[data-modal]');
 const modalCloseBtn = document.querySelector('[data-modal-close]');

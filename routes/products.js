@@ -118,13 +118,66 @@ router.get("/:slug", async (req, res) => {
   let page = parseInt(req.query.page) || 1;
   try {
     const foundCategory = await Category.findOne({ slug: req.params.slug });
-    const allProducts = await Product.find({ category: foundCategory.id })
-      .sort("-createdAt")
-      .skip(perPage * page - perPage)
-      .limit(perPage)
-      .populate("category");
+    let allProducts = []
+    let count = 0
 
-    const count = await Product.count({ category: foundCategory.id });
+    if(foundCategory.group && foundCategory.group !== '') {
+      allProducts = await Product.find({ category: foundCategory.id })
+        .sort("-createdAt")
+        .skip(perPage * page - perPage)
+        .limit(perPage)
+        .populate("category");
+
+      count = await Product.count({ category: foundCategory.id });
+    } else {
+      allProducts = await Product.aggregate([
+        {
+          $lookup: {
+            from: "categories",
+            localField: "category",
+            foreignField: "_id",
+            as: "category",
+          },
+        },
+        {
+          $match: {
+            "category.group": foundCategory.title,
+          },
+        },
+        {
+          $sort: { createdAt: -1 },
+        },
+        {
+          $skip: perPage * page - perPage,
+        },
+        {
+          $limit: perPage,
+        },
+      ]);
+
+      
+      count = await Product.aggregate([
+        {
+          $lookup: {
+            from: "categories",
+            localField: "category",
+            foreignField: "_id",
+            as: "category",
+          },
+        },
+        {
+          $match: {
+            "category.group": foundCategory.title,
+          },
+        },
+        {
+          $count: "totalCount",
+        },
+      ]);
+    
+      count = count.length > 0 ? count[0].totalCount : 0;
+
+    }
 
     res.render("shop/products", {
       pageName: foundCategory.title,
