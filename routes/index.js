@@ -30,25 +30,24 @@ router.get("/", async (req, res) => {
     const products = await Product.find({})
       .skip(0)
       .limit(12)
-      .sort("-createdAt")
       .populate("category");
 
     const newArrivalsProducts = await Product.find({})
+      .sort("-createdAt")
       .skip(0)
       .limit(8)
-      .sort("-createdAt")
       .populate("category");
 
     const trendingProducts = await Product.find({})
+      .sort("-numberRating")
       .skip(0)
       .limit(8)
-      .sort("price")
       .populate("category");
 
     const topRatedProducts = await Product.find({})
+      .sort("-rating")
       .skip(0)
       .limit(8)
-      .sort("-price")
       .populate("category");
 
     // Get hot deals product with number of already sold
@@ -136,9 +135,9 @@ router.get("/", async (req, res) => {
 
     // Get blog posts
     const blogs = await Blog.find({})
+      .sort("createdAt")
       .skip(0)
       .limit(4)
-      .sort("createdAt")
       .populate("banner");
 
     res.render("shop/home", {

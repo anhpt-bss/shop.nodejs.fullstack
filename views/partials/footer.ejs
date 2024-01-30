@@ -33,11 +33,11 @@
           <h2 class="nav-title">Danh Mục Phổ Biến</h2>
         </li>
 
-        <% categories.filter(category => category.group).forEach( category=> { %>
-        <li class="footer-nav-item">
-          <a href="/products/<%= category.slug %>" class="footer-nav-link"><%= category.title %></a>
-        </li>
-        <% }) %>
+        <% categories.filter(category => category.group).forEach( (category, index)=> { if(index <= 4) { %>
+          <li class="footer-nav-item">
+            <a href="/products/<%= category.slug %>" class="footer-nav-link"><%= category.title %></a>
+          </li>
+        <% }}) %>
 
       </ul>
 
@@ -48,23 +48,23 @@
         </li>
 
         <li class="footer-nav-item">
-          <a href="/products/filter?filter=new-arrivals" class="footer-nav-link">Hàng Mới Đến</a>
+          <a href="/products?filter=new-arrivals" class="footer-nav-link">Hàng Mới Đến</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="/products/filter?filter=trending" class="footer-nav-link">Xu Hướng</a>
+          <a href="/products?filter=trending" class="footer-nav-link">Xu Hướng</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="/products/filter?filter=top-rated" class="footer-nav-link">Đánh Giá Cao</a>
+          <a href="/products?filter=top-rated" class="footer-nav-link">Đánh Giá Cao</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="/products/filter?filter=best-seller" class="footer-nav-link">Bán Chạy</a>
+          <a href="/products?filter=best-seller" class="footer-nav-link">Bán Chạy</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="/products/filter?filter=deal-of-the-day" class="footer-nav-link">Khuyến Mãi Hot</a>
+          <a href="#" class="footer-nav-link">Khuyến Mãi Hot</a>
         </li>
 
       </ul>
