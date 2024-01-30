@@ -23,10 +23,38 @@ router.get("/shipping-policy", (req, res) => {
   });
 });
 
-//GET: display careers page
-router.get("/careers", (req, res) => {
-  res.render("pages/careers", {
-    pageName: "Nghề Nghiệp",
+//GET: display term of service page
+router.get("/terms-of-service", (req, res) => {
+  res.render("pages/terms-of-service", {
+    pageName: "Điều Khoản Sử Dụng",
+  });
+});
+
+//GET: display privacy policy page
+router.get("/privacy-policy", (req, res) => {
+  res.render("pages/privacy-policy", {
+    pageName: "Chính Sách Bảo Mật",
+  });
+});
+
+//GET: display payment policy page
+router.get("/payment-policy", (req, res) => {
+  res.render("pages/payment-policy", {
+    pageName: "Chính Sách Thanh Toán",
+  });
+});
+
+//GET: display return policy page
+router.get("/return-policy", (req, res) => {
+  res.render("pages/return-policy", {
+    pageName: "Chính Sách Hoàn Trả",
+  });
+});
+
+//GET: display shopping guide page
+router.get("/shopping-guide", (req, res) => {
+  res.render("pages/shopping-guide", {
+    pageName: "Hướng Dẫn Mua Hàng",
   });
 });
 
