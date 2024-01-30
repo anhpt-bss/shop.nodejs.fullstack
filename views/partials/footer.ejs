@@ -33,11 +33,11 @@
           <h2 class="nav-title">Danh Mục Phổ Biến</h2>
         </li>
 
-        <% categories.filter(category => category.group).forEach( category=> { %>
-        <li class="footer-nav-item">
-          <a href="/products/<%= category.slug %>" class="footer-nav-link"><%= category.title %></a>
-        </li>
-        <% }) %>
+        <% categories.filter(category => category.group).forEach( (category, index)=> { if(index <= 7) { %>
+          <li class="footer-nav-item">
+            <a href="/products/<%= category.slug %>" class="footer-nav-link"><%= category.title %></a>
+          </li>
+        <% }}) %>
 
       </ul>
 
@@ -48,23 +48,23 @@
         </li>
 
         <li class="footer-nav-item">
-          <a href="/products/filter?filter=new-arrivals" class="footer-nav-link">Hàng Mới Đến</a>
+          <a href="/products?filter=new-arrivals" class="footer-nav-link">Hàng Mới Đến</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="/products/filter?filter=trending" class="footer-nav-link">Xu Hướng</a>
+          <a href="/products?filter=trending" class="footer-nav-link">Xu Hướng</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="/products/filter?filter=top-rated" class="footer-nav-link">Đánh Giá Cao</a>
+          <a href="/products?filter=top-rated" class="footer-nav-link">Đánh Giá Cao</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="/products/filter?filter=best-seller" class="footer-nav-link">Bán Chạy</a>
+          <a href="/products?filter=best-seller" class="footer-nav-link">Bán Chạy</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="/products/filter?filter=deal-of-the-day" class="footer-nav-link">Khuyến Mãi Hot</a>
+          <a href="#" class="footer-nav-link">Khuyến Mãi Hot</a>
         </li>
 
       </ul>
@@ -72,27 +72,43 @@
       <ul class="footer-nav-list">
 
         <li class="footer-nav-item">
-          <h2 class="nav-title">Thông Tin</h2>
+          <h2 class="nav-title">Hỗ Trợ Khách Hàng</h2>
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Thanh Toán</a>
+          <a href="/user/signin" class="footer-nav-link">Đăng Nhập</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="/pages/shipping-policy" class="footer-nav-link">Giao Hàng</a>
+          <a href="/user/signup" class="footer-nav-link">Đăng Ký</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Hoàn Trả</a>
+          <a href="/pages/terms-of-service" class="footer-nav-link">Điều Khoản Sử Dụng</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Đăng Ký Bán Hàng</a>
+          <a href="/pages/privacy-policy" class="footer-nav-link">Chính Sách Bảo Mật</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="/pages/about-us" class="footer-nav-link">Về Chúng Tôi</a>
+          <a href="/pages/payment-policy" class="footer-nav-link">Chính Sách Thanh Toán</a>
+        </li>
+
+        <li class="footer-nav-item">
+          <a href="/pages/shipping-policy" class="footer-nav-link">Chính Sách Giao Hàng</a>
+        </li>
+
+        <li class="footer-nav-item">
+          <a href="/pages/return-policy" class="footer-nav-link">Chính Sách Hoàn Trả</a>
+        </li>
+
+        <li class="footer-nav-item">
+          <a href="/pages/shopping-guide" class="footer-nav-link">Hướng Dẫn Mua Hàng</a>
+        </li>
+
+        <li class="footer-nav-item">
+          <a href="/pages/contact-us" class="footer-nav-link">Đăng Ký Bán Hàng</a>
         </li>
 
       </ul>
@@ -116,9 +132,8 @@
         </li>
 
         <li class="footer-nav-item">
-          <a href="/pages/careers" class="footer-nav-link">Việc Làm</a>
+          <a href="/pages/about-us" class="footer-nav-link">Về Chúng Tôi</a>
         </li>
-
       </ul>
 
       <ul class="footer-nav-list">

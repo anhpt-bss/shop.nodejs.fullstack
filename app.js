@@ -99,7 +99,7 @@ app.use(async (req, res, next) => {
         },
       },
       {
-        $sort: { title: 1 },
+        $sort: { productCount: -1 },
       },
     ]);
 
