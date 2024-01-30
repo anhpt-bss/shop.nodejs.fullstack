@@ -62,11 +62,18 @@
               </div>
 
               <div>
-                Còn Lại: <b><%=hotDeals.numberSold%></b>
+                Còn Lại: <b><%=(hotDeals.numberSold - hotDeals.alreadySold)%></b>
               </div>
             </div>
 
-            <div class="showcase-status-bar"></div>
+            <!-- <div class="showcase-status-bar"></div> -->
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" 
+                aria-valuenow="<%= hotDeals.alreadySold %>" aria-valuemin="0" aria-valuemax="<%= hotDeals.numberSold %>" 
+                style="width: <%= ((hotDeals.alreadySold * 100) / hotDeals.numberSold).toFixed(2) + '%' %>"
+              ></div>
+            </div>
+            
           </div>
 
           <div class="countdown-box">

@@ -7,6 +7,8 @@ const Product = require("../models/product");
 const Order = require("../models/order");
 const Cart = require("../models/cart");
 const middleware = require("../middleware");
+
+const { helper } = require("../utils/helper");
 const {
   userSignUpValidationRules,
   userSignInValidationRules,
@@ -23,6 +25,7 @@ router.get("/signup", middleware.isNotLoggedIn, (req, res) => {
     csrfToken: req.csrfToken(),
     errorMsg,
     pageName: "Đăng Ký",
+    helper: helper
   });
 });
 // POST: handle the signup logic
@@ -69,6 +72,7 @@ router.get("/signin", middleware.isNotLoggedIn, async (req, res) => {
     csrfToken: req.csrfToken(),
     errorMsg,
     pageName: "Đăng Nhập",
+    helper: helper
   });
 });
 
@@ -126,6 +130,7 @@ router.get("/profile", middleware.isLoggedIn, async (req, res) => {
       errorMsg,
       successMsg,
       pageName: "Hồ Sơ Người Dùng",
+      helper: helper
     });
   } catch (err) {
     console.log(err);
