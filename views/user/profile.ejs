@@ -30,7 +30,7 @@
     <div class="row mt-4">
       <div class="col-md-8 m-auto">
         <% if (orders != null && orders.length > 0) { %>
-        <h3>Đơn Mua</h3>
+        <h4>Đơn Mua</h4>
         <hr>
 
         <% orders.forEach( order => { %>
@@ -46,20 +46,35 @@
               <% order.cart.items.forEach( item => { %>
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 <%= item.title %> | <%= item.qty %> Sản Phẩm
-                <span class="badge badge-info badge-pill">$ <%= item.price %></span>
+                <span class="badge badge-info badge-pill">
+                  <%= helper.addCommasToNumber(item.price - (item.price * (item.discount / 100))) %>
+                  <%= item.discount > 0 ? ` (-${item.discount}%)` : '' %>
+                </span>
               </li>
               <%}) %>
             </ul>
             </p>
           </div>
           <div class="card-footer d-flex justify-content-between">
-            <strong>Tổng giá: <%= order.cart.totalCost %>đ</strong>
-            <span><%= order.createdAt.toLocaleString() %></span>
+            <strong>Tổng Đơn: <%= helper.addCommasToNumber(order.cart.totalCost) %></strong>
+            <span><%= helper.formatDateTime(order.createdAt) %></span>
           </div>
         </div>
         <%}) %>
         <%} else { %>
-        <h3 class="text-center">Bạn không có đơn hàng nào</h3>
+        <h4>Đơn Mua</h4>
+        <hr>
+        
+        <div class="card text-center">
+          <div class="card-body">
+            <h5 class="card-title">Bạn không có đơn hàng nào</h5>
+            <a href="/products/" class="btn btn-primary">Mua Hàng Ngay</a>
+          </div>
+          <div class="card-footer text-body-secondary">
+            <a href="/">Quay Lại Trang Chủ</a>
+          </div>
+        </div>
+         
         <%} %>
       </div>
     </div>

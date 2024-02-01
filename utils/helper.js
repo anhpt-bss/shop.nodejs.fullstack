@@ -12,9 +12,6 @@ const helper = {
   formatDateTime: function (dateString) {
     return dateString ? moment(dateString).format("DD/MM/YYYY • HH:mm:ss") : "";
   },
-  formatDateTime: function (dateString) {
-    return dateString ? moment(dateString).format("DD/MM/YYYY • HH:mm:ss") : "";
-  },
   getDaysFromNow: function (dateString) {
     return dateString ? moment(dateString).fromNow() : "";
   },
