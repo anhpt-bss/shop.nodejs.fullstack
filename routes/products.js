@@ -214,14 +214,17 @@ router.get("/:slug", async (req, res) => {
 
 // GET: display a certain product by its id
 router.get("/:slug/:id", async (req, res) => {
+  const currentUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
   const successMsg = req.flash("success")[0];
   const errorMsg = req.flash("error")[0];
+
   try {
     const product = await Product.findById(req.params.id)
       .populate("category")
       .populate("imageGallery");
     res.render("shop/product-detail", {
       pageName: product.title,
+      currentUrl,
       product,
       successMsg,
       errorMsg,

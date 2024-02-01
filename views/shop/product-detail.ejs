@@ -81,7 +81,9 @@
                           <% } %>
                         <% } %>
 
-                        <span><%= product.rating %>(<%= product.numberRating %>)</span>
+                        <% if(product.numberRating > 0) { %>
+                          <span><%= product.rating %>(<%= product.numberRating %>)</span>
+                        <% }%>
                       </div>
 
                       <div class="product_detail__price">
@@ -149,8 +151,11 @@
             </div>
 
             <div class="product_detail__description">
-              <h4>Mô Tả Sản Phẩm: </h4>
               <div><%- product.description %></div>
+            </div>
+
+            <div class="product_detail__review">
+              <div class="fb-comments" data-href="<%= currentUrl %>" data-width="100%" data-numposts="5"></div>
             </div>
           </div>
       </div>
