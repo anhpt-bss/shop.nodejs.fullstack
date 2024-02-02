@@ -1,11 +1,13 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const faker = require("faker");
 
 const productSchema = Schema({
   productCode: {
     type: String,
-    required: true,
+    required: false,
     unique: true,
+    default: faker.helpers.replaceSymbolWithNumber("####-##########")
   },
   title: {
     type: String,

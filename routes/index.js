@@ -131,6 +131,9 @@ router.get("/",  middleware.savePreviousPage, async (req, res) => {
           },
         },
       },
+      {
+        $sort: { finishAt: 1 },
+      },
     ]);
 
     // Get blog posts
