@@ -84,22 +84,22 @@
 
             <div class="countdown">
               <div class="countdown-content">
-                <div class="display-number" id="days">0</div>
+                <div class="display-number" id="days<%= hotDeals._id %>">0</div>
                 <div class="display-text">Ngày</div>
               </div>
           
               <div class="countdown-content">
-                <div class="display-number" id="hours">0</div>
+                <div class="display-number" id="hours<%= hotDeals._id %>">0</div>
                 <div class="display-text">Giờ</div>
               </div>
           
               <div class="countdown-content">
-                <div class="display-number" id="minutes">0</div>
+                <div class="display-number" id="minutes<%= hotDeals._id %>">0</div>
                 <div class="display-text">Phút</div>
               </div>
           
               <div class="countdown-content">
-                <div class="display-number" id="seconds">0</div>
+                <div class="display-number" id="seconds<%= hotDeals._id %>">0</div>
                 <div class="display-text">Giây</div>
               </div>
             </div>
@@ -111,22 +111,19 @@
       </div>
 
       <script>
-        // Lấy thời gian kết thúc từ server (ví dụ)
-        const finishAt = new Date("<%= hotDeals.finishAt %>");
-    
         function updateCountdown() {
           const now = new Date();
-          const timeDifference = finishAt - now;
+          const timeDifference = new Date("<%= hotDeals.finishAt %>") - now;
     
           const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
           const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
           const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
           const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
     
-          document.getElementById('days').innerText = days;
-          document.getElementById('hours').innerText = hours;
-          document.getElementById('minutes').innerText = minutes;
-          document.getElementById('seconds').innerText = seconds;
+          document.getElementById('days<%= hotDeals._id %>').innerText = days;
+          document.getElementById('hours<%= hotDeals._id %>').innerText = hours;
+          document.getElementById('minutes<%= hotDeals._id %>').innerText = minutes;
+          document.getElementById('seconds<%= hotDeals._id %>').innerText = seconds;
         }
     
         // Cập nhật đồng hồ mỗi giây

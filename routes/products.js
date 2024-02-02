@@ -270,6 +270,13 @@ router.post(
         }
      
         req.flash("success", "Gửi đánh giá về sản phẩm thành công!");
+       
+        // Update number of rating in product
+        const product = await Product.findById(req.params.id);
+        product.numberRating++;
+        product.rating = ((Number(product.rating) + Number(req.body.rating)) / 2);
+        await product.save();
+
         return res.redirect(req.originalUrl);
       });
     } catch (err) {
