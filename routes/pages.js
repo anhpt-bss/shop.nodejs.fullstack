@@ -2,6 +2,7 @@ const express = require("express");
 const csrf = require("csurf");
 const nodemailer = require("nodemailer");
 const router = express.Router();
+const middleware = require("../middleware");
 const {
   userContactUsValidationRules,
   validateContactUs,
@@ -10,56 +11,56 @@ const csrfProtection = csrf();
 router.use(csrfProtection);
 
 //GET: display abous us page
-router.get("/about-us", (req, res) => {
+router.get("/about-us",  middleware.savePreviousPage, (req, res) => {
   res.render("pages/about-us", {
     pageName: "Về Chúng Tôi",
   });
 });
 
 //GET: display shipping policy page
-router.get("/shipping-policy", (req, res) => {
+router.get("/shipping-policy",  middleware.savePreviousPage, (req, res) => {
   res.render("pages/shipping-policy", {
     pageName: "Chính Sách Giao Hàng",
   });
 });
 
 //GET: display term of service page
-router.get("/terms-of-service", (req, res) => {
+router.get("/terms-of-service",  middleware.savePreviousPage, (req, res) => {
   res.render("pages/terms-of-service", {
     pageName: "Điều Khoản Sử Dụng",
   });
 });
 
 //GET: display privacy policy page
-router.get("/privacy-policy", (req, res) => {
+router.get("/privacy-policy",  middleware.savePreviousPage, (req, res) => {
   res.render("pages/privacy-policy", {
     pageName: "Chính Sách Bảo Mật",
   });
 });
 
 //GET: display payment policy page
-router.get("/payment-policy", (req, res) => {
+router.get("/payment-policy",  middleware.savePreviousPage, (req, res) => {
   res.render("pages/payment-policy", {
     pageName: "Chính Sách Thanh Toán",
   });
 });
 
 //GET: display return policy page
-router.get("/return-policy", (req, res) => {
+router.get("/return-policy",  middleware.savePreviousPage, (req, res) => {
   res.render("pages/return-policy", {
     pageName: "Chính Sách Hoàn Trả",
   });
 });
 
 //GET: display shopping guide page
-router.get("/shopping-guide", (req, res) => {
+router.get("/shopping-guide",  middleware.savePreviousPage, (req, res) => {
   res.render("pages/shopping-guide", {
     pageName: "Hướng Dẫn Mua Hàng",
   });
 });
 
 //GET: display contact us page and form with csrf tokens
-router.get("/contact-us", (req, res) => {
+router.get("/contact-us",  middleware.savePreviousPage, (req, res) => {
   const successMsg = req.flash("success")[0];
   const errorMsg = req.flash("error");
   res.render("pages/contact-us", {

@@ -60,7 +60,7 @@ router.post(
     } catch (err) {
       console.log(err);
       req.flash("error", err.message);
-      return res.redirect("/");
+      return res.redirect("/signup");
     }
   }
 );
@@ -119,7 +119,7 @@ router.post(
 );
 
 // GET: display user's profile
-router.get("/profile", middleware.isLoggedIn, async (req, res) => {
+router.get("/profile", middleware.isLoggedIn, middleware.savePreviousPage, async (req, res) => {
   const successMsg = req.flash("success")[0];
   const errorMsg = req.flash("error")[0];
   try {
@@ -134,7 +134,7 @@ router.get("/profile", middleware.isLoggedIn, async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    return res.redirect("/");
+    res.redirect(req.session.oldUrl);
   }
 });
 
@@ -142,6 +142,6 @@ router.get("/profile", middleware.isLoggedIn, async (req, res) => {
 router.get("/logout", middleware.isLoggedIn, (req, res) => {
   req.logout();
   req.session.cart = null;
-  res.redirect("/");
+  res.redirect(req.session.oldUrl);
 });
 module.exports = router;

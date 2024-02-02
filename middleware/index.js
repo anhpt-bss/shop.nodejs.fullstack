@@ -15,4 +15,10 @@ middlewareObject.isLoggedIn = (req, res, next) => {
   res.redirect("/user/signin");
 };
 
+// a middleware to save previous page to session
+middlewareObject.savePreviousPage = (req, res, next) => {
+  req.session.oldUrl = req.originalUrl || '/';
+  next();
+};
+
 module.exports = middlewareObject;
