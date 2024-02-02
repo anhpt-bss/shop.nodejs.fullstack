@@ -22,7 +22,7 @@ router.use(csrfProtection);
 const { helper } = require("../utils/helper");
 
 // GET: home page
-router.get("/", async (req, res) => {
+router.get("/",  middleware.savePreviousPage, async (req, res) => {
   const successMsg = req.flash("success")[0];
   const errorMsg = req.flash("error")[0];
 
@@ -154,7 +154,7 @@ router.get("/", async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.redirect("/");
+    res.redirect(req.session.oldUrl);
   }
 });
 
@@ -213,15 +213,15 @@ router.get("/add-to-cart/:id", async (req, res) => {
     }
     req.session.cart = cart;
     req.flash("success", "Sản phẩm đã được thêm vào giỏ hàng!");
-    res.redirect(req.headers.referer);
+    res.redirect(req.session.oldUrl);
   } catch (err) {
     console.log(err.message);
-    res.redirect("/");
+    res.redirect(req.session.oldUrl);
   }
 });
 
 // GET: view shopping cart contents
-router.get("/shopping-cart", async (req, res) => {
+router.get("/shopping-cart", middleware.savePreviousPage, async (req, res) => {
   try {
     // find the cart, whether in session or in db based on the user state
     let cart_user;
@@ -255,7 +255,7 @@ router.get("/shopping-cart", async (req, res) => {
     });
   } catch (err) {
     console.log(err.message);
-    res.redirect("/");
+    res.redirect(req.session.oldUrl);
   }
 });
 
@@ -297,10 +297,10 @@ router.get("/reduce/:id", async function (req, res, next) {
         await Cart.findByIdAndRemove(cart._id);
       }
     }
-    res.redirect(req.headers.referer);
+    res.redirect(req.session.oldUrl);
   } catch (err) {
     console.log(err.message);
-    res.redirect("/");
+    res.redirect(req.session.oldUrl);
   }
 });
 
@@ -332,15 +332,15 @@ router.get("/removeAll/:id", async function (req, res, next) {
       req.session.cart = null;
       await Cart.findByIdAndRemove(cart._id);
     }
-    res.redirect(req.headers.referer);
+    res.redirect(req.session.oldUrl);
   } catch (err) {
     console.log(err.message);
-    res.redirect("/");
+    res.redirect(req.session.oldUrl);
   }
 });
 
 // GET: checkout form with csrf token
-router.get("/checkout", middleware.isLoggedIn, async (req, res) => {
+router.get("/checkout", middleware.isLoggedIn, middleware.savePreviousPage, async (req, res) => {
   const errorMsg = req.flash("error")[0];
 
   if (!req.session.cart) {
@@ -373,7 +373,6 @@ router.post(
         return res.redirect("/shopping-cart");
       }
       const cart = await Cart.findById(req.session.cart._id);
-      console.log(req.body);
 
       if (req.body.paymentMethod === "cast") {
         const order = new Order({
@@ -444,7 +443,7 @@ router.post(
     } catch (err) {
       console.log(err);
       req.flash("error", err.message);
-      return res.redirect("/");
+      res.redirect(req.session.oldUrl);
     }
   }
 );

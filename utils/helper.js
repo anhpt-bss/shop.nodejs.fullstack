@@ -39,6 +39,9 @@ const helper = {
     }
     return str;
   },
+  getAvatar: function (avatar) {
+    return avatar ? avatar : '/images/default-avatar.jpg'
+  }
 };
 
 module.exports = { helper };

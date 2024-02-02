@@ -2,7 +2,7 @@ const { check, validationResult } = require("express-validator");
 
 const userSignUpValidationRules = () => {
   return [
-    check("name", "Tên được yêu cầu").not().isEmpty(),
+    check("name", "Vui lòng nhập tên").not().isEmpty(),
     check("email", "Định dạng Email không hợp lệ").not().isEmpty().isEmail(),
     check("password", "Vui lòng nhập mật khẩu từ 4 kí tự trở lên")
       .not()
@@ -20,12 +20,12 @@ const userSignInValidationRules = () => {
 
 const userContactUsValidationRules = () => {
   return [
-    check("name", "Please enter a name").not().isEmpty(),
-    check("email", "Please enter a valid email address")
+    check("name", "Vui lòng nhập tên").not().isEmpty(),
+    check("email", "Định dạng Email không hợp lệ")
       .not()
       .isEmpty()
       .isEmail(),
-    check("message", "Please enter a message with at least 10 words")
+    check("message", "Vui lòng nhập nội dung ít nhất 10 từ")
       .not()
       .isEmpty()
       .isLength({ min: 10 }),
@@ -34,9 +34,15 @@ const userContactUsValidationRules = () => {
 
 const checkoutValidationRules = () => {
   return [
-    check("phone", "Please enter a phone number").not().isEmpty(),
-    check("address", "Please enter an address").not().isEmpty(),
-    check("paymentMethod", "Please enter a payment method").not().isEmpty(),
+    check("phone", "Vui lòng nhập số điện thoại").not().isEmpty(),
+    check("address", "Vui lòng nhập địa chỉ").not().isEmpty(),
+    check("paymentMethod", "Vui lòng nhập phương thức thanh toán").not().isEmpty(),
+  ];
+};
+
+const feedbackValidationRules = () => {
+  return [
+    check("rating", "Vui lòng đánh giá số sao").not().isEmpty(),
   ];
 };
 
@@ -94,13 +100,30 @@ const validateCheckout = (req, res, next) => {
   next();
 };
 
+const validateFeedback = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    var messages = [];
+    errors.array().forEach((error) => {
+      messages.push(error.msg);
+    });
+    console.log(messages);
+    req.flash("error", messages);
+    const currentUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
+    return res.redirect(currentUrl);
+  }
+  next();
+};
+
 module.exports = {
   userSignUpValidationRules,
   userSignInValidationRules,
   userContactUsValidationRules,
   checkoutValidationRules,
+  feedbackValidationRules,
   validateSignup,
   validateSignin,
   validateContactUs,
-  validateCheckout
+  validateCheckout,
+  validateFeedback
 };

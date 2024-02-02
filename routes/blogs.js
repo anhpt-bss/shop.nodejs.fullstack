@@ -3,9 +3,10 @@ const router = express.Router();
 const Blog = require("../models/blog");
 
 const { helper } = require("../utils/helper");
+const middleware = require("../middleware");
 
 // GET: display all blogs
-router.get("/", async (req, res) => {
+router.get("/", middleware.savePreviousPage, async (req, res) => {
   const successMsg = req.flash("success")[0];
   const errorMsg = req.flash("error")[0];
   const perPage = 12;
@@ -32,12 +33,12 @@ router.get("/", async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.redirect("/");
+    res.redirect(req.session.oldUrl);
   }
 });
 
 // GET: display a certain Blog by its id
-router.get("/:id/:slug", async (req, res) => {
+router.get("/:id/:slug", middleware.savePreviousPage, async (req, res) => {
   const successMsg = req.flash("success")[0];
   const errorMsg = req.flash("error")[0];
   try {
@@ -61,7 +62,7 @@ router.get("/:id/:slug", async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return res.redirect("/");
+    res.redirect(req.session.oldUrl);
   }
 });
 

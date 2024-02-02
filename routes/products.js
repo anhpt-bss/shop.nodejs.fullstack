@@ -2,12 +2,17 @@ const express = require("express");
 const router = express.Router();
 const Product = require("../models/product");
 const Category = require("../models/category");
+const Interaction = require("../models/interaction");
 var moment = require("moment");
-
+const middleware = require("../middleware");
 const { helper } = require("../utils/helper");
+const {
+  feedbackValidationRules,
+  validateFeedback,
+} = require("../config/validator");
 
 // GET: display all products
-router.get("/", async (req, res) => {
+router.get("/", middleware.savePreviousPage, async (req, res) => {
   const successMsg = req.flash("success")[0];
   const errorMsg = req.flash("error")[0];
   const perPage = 12;
@@ -47,7 +52,7 @@ router.get("/", async (req, res) => {
         count = await Product.count();
         break;
 
-        case "best-seller":
+      case "best-seller":
         products = await Product.find({})
           .sort("-discount")
           .skip(perPage * page - perPage)
@@ -82,12 +87,12 @@ router.get("/", async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.redirect("/");
+    res.redirect(req.session.oldUrl);
   }
 });
 
 // GET: search box
-router.get("/search", async (req, res) => {
+router.get("/search", middleware.savePreviousPage, async (req, res) => {
   const perPage = 12;
   let page = parseInt(req.query.page) || 1;
   const successMsg = req.flash("success")[0];
@@ -118,12 +123,12 @@ router.get("/search", async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.redirect("/");
+    res.redirect(req.session.oldUrl);
   }
 });
 
 //GET: get a certain category by its slug (this is used for the categories navbar)
-router.get("/:slug", async (req, res) => {
+router.get("/:slug", middleware.savePreviousPage, async (req, res) => {
   const successMsg = req.flash("success")[0];
   const errorMsg = req.flash("error")[0];
   const perPage = 12;
@@ -208,13 +213,14 @@ router.get("/:slug", async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return res.redirect("/");
+    res.redirect(req.session.oldUrl);
   }
 });
 
 // GET: display a certain product by its id
-router.get("/:slug/:id", async (req, res) => {
-  const currentUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+router.get("/:slug/:id", middleware.savePreviousPage, async (req, res) => {
+  const currentUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
+  const user = req.user
   const successMsg = req.flash("success")[0];
   const errorMsg = req.flash("error")[0];
 
@@ -222,10 +228,16 @@ router.get("/:slug/:id", async (req, res) => {
     const product = await Product.findById(req.params.id)
       .populate("category")
       .populate("imageGallery");
+    const feedbacks = await Interaction.find({product: req.params.id, type: 'review'})
+      .sort('-createdAt')
+      .populate("user");
+
     res.render("shop/product-detail", {
       pageName: product.title,
       currentUrl,
+      user,
       product,
+      feedbacks,
       successMsg,
       errorMsg,
       moment: moment,
@@ -233,8 +245,39 @@ router.get("/:slug/:id", async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return res.redirect("/");
+    res.redirect(req.session.oldUrl);
   }
 });
+
+// POST: handle feedback logic
+router.post(
+  "/feedback/:id",
+  [middleware.isLoggedIn, feedbackValidationRules(), validateFeedback],
+  async (req, res) => {
+    try {
+
+      const interaction = new Interaction({
+        user: req.user,
+        product: req.params.id,
+        rating: req.body.rating,
+        content: req.body.content,
+      });
+
+      interaction.save(async (err, newInteraction) => {
+        if (err) {
+          console.log(err);
+          return res.redirect(req.originalUrl);
+        }
+     
+        req.flash("success", "Gửi đánh giá về sản phẩm thành công!");
+        return res.redirect(req.originalUrl);
+      });
+    } catch (err) {
+      console.log(err);
+      req.flash("error", err.message);
+      return res.redirect(req.session.oldUrl);
+    }
+  }
+);
 
 module.exports = router;

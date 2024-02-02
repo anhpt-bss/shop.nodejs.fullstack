@@ -7,12 +7,13 @@ const User = require("../models/user");
 const Order = require("../models/order");
 const Category = require("../models/category");
 const Resource = require("../models/resource");
+const HotDeals = require("../models/hotDeals");
+const Blog = require("../models/blog");
+const Interaction = require("../models/interaction");
 
 AdminBro.registerAdapter(AdminBroMongoose);
 
 const express = require("express");
-const hotDeals = require("../models/hotDeals");
-const blog = require("../models/blog");
 const app = express();
 
 const adminBro = new AdminBro({
@@ -183,7 +184,7 @@ const adminBro = new AdminBro({
       },
     },
     {
-      resource: hotDeals,
+      resource: HotDeals,
       options: {
         parent: {
           name: "Admin Content",
@@ -200,7 +201,7 @@ const adminBro = new AdminBro({
       },
     },
     {
-      resource: blog,
+      resource: Blog,
       options: {
         parent: {
           name: "Admin Content",
@@ -227,6 +228,35 @@ const adminBro = new AdminBro({
           content: {
             type: "richtext",
             isVisible: { list: false, filter: true, show: true, edit: true },
+          },
+        },
+      },
+    },
+    {
+      resource: Interaction,
+      options: {
+        parent: {
+          name: "Admin Content",
+          icon: "InventoryManagement",
+        },
+        properties: {
+          _id: {
+            isVisible: { list: false, filter: true, show: true, edit: false },
+          },
+          type: {
+            isTitle: true,
+          },
+          user: {
+            isVisible: { list: true, filter: false, show: false, edit: false },
+          },
+          product: {
+            isVisible: { list: true, filter: false, show: false, edit: false },
+          },
+          rating: {
+            isVisible: { list: true, filter: false, show: false, edit: false },
+          },
+          content: {
+            isVisible: { list: true, filter: false, show: false, edit: false },
           },
         },
       },
